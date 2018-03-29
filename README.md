@@ -1,8 +1,6 @@
-# k8s-12312
+# Kubernetes 简明教程
 
 adfasf
 
 daf
-
-
 
