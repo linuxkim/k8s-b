@@ -1,4 +1,4 @@
-# Kubernetes简介 {#kubernetes简介}
+# Kubernetes 是什么 {#kubernetes简介}
 
 Kubernetes是谷歌开源的容器集群管理系统，它构建在Docker技术之上，是Google多年大规模容器管理技术Borg的开源版本，主要功能包括：
 
