@@ -2,5 +2,5 @@
 
 Kubernetes属于主从分布式架构，节点在角色上分为Master和Node，如下图：
 
-![](/assets/architecture.png)Kubernetes上使用Etcd作为存储中间
+![](/assets/architecture.png)Kubernetes上使用Etcd作为存储中间件，Etcd是一个高可用的键值存储系统，通过Raft一致性算法处理日志复制以保证强一致性。Kubernetes使用Etcd作为系统的配置存储中心，Kubernetes中的重要数据都是持久化在Etcd中的，这使得Kubernetes架构的各个组件属于无状态，可以更简单的实施分布式集群部署。
 
