@@ -8,7 +8,7 @@
 ## 架构与部署
 
 * [Kubernetes 核心概念](jia-gou-yu-bu-shu/kubernetes-he-xin-gai-nian.md)
-* [Kubernetes 架构和组件](jia-gou-yu-bu-shu/kubernetes-jia-gou-he-zu-jian.md)
+* [Kubernetes 组件](jia-gou-yu-bu-shu/kubernetes-jia-gou-he-zu-jian.md)
 * Kubernetes 部署
 * Kubernetes 插件
 
