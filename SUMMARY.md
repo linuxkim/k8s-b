@@ -17,6 +17,8 @@
 ## Pod
 
 * [Pod 简介](pods/pod-jian-jie.md)
+* [Pod 基本用法](pods/pod-ji-ben-yong-fa.md)
+* [Pod yaml 示例详解](pods/pod-yaml-shi-li.md)
 
 ## 控制器
 
