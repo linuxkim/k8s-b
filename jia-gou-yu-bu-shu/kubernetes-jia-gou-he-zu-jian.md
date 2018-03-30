@@ -1,4 +1,6 @@
-##  {#核心组件}
+# Kubernetes的架构
 
-![](https://kubernetes.feisky.xyz/zh/introduction/architecture.png)
+Kubernetes属于主从分布式架构，节点在角色上分为Master和Node，如下图：
+
+![](/assets/architecture.png)Kubernetes上使用Etcd作为存储中间
 
