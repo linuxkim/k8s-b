@@ -14,13 +14,15 @@
 * Kubernetes 部署
 * Kubernetes 插件
 
-## Pods
+## Pod
 
-## Replication Controller
+* [Pod 简介](pods/pod-jian-jie.md)
 
-## Service
+## 控制器
 
-## 数据卷
+## 服务发现
+
+## 存储
 
 ## API
 
