@@ -14,19 +14,19 @@
 * Kubernetes 部署
 * Kubernetes 插件
 
-## Kubernetes Pod
+## Pods
 
-## Kubernetes Replication Controller
+## Replication Controller
 
-## Kubernetes Service
+## Service
 
-## Kubernetes 数据卷
+## 数据卷
 
-## Kubernetes API
+## API
 
-## Kubernetes 网络
+## 网络
 
 ## Etcd 简介
 
-## Kubernetes 安全
+## 安全
 
