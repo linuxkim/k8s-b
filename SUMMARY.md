@@ -5,10 +5,10 @@
 * [1.1. 序言](README.md)
 * [1.2. Kubernetes 简介](12-kubernetes-jian-jie.md)
 
-## Kubernetes 架构
+## 架构与部署
 
-* Kubernetes 核心概念
-* Kubernetes 架构和组件
+* [Kubernetes 核心概念](jia-gou-yu-bu-shu/kubernetes-he-xin-gai-nian.md)
+* [Kubernetes 架构和组件](jia-gou-yu-bu-shu/kubernetes-jia-gou-he-zu-jian.md)
 * Kubernetes 部署
 * Kubernetes 插件
 
