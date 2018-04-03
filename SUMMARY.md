@@ -11,8 +11,8 @@
 * [2.2. Kubernetes 架构与组件](jia-gou-yu-bu-shu/kubernetes-jia-gou-he-zu-jian.md)
   * [2.2.1.Mster 组件](jia-gou-yu-bu-shu/kubernetes-jia-gou-he-zu-jian/mster-zu-jian.md)
   * [2.2.2.Node 组件](jia-gou-yu-bu-shu/kubernetes-jia-gou-he-zu-jian/node-zu-jian.md)
-* Kubernetes 部署
-* Kubernetes 插件
+* [Kubernetes 部署](jia-gou-yu-bu-shu/kubernetes-bu-shu.md)
+* [Kubernetes 插件](jia-gou-yu-bu-shu/kubernetes-cha-jian.md)
 
 ## Pod
 
@@ -24,9 +24,9 @@
 
 * [4.1. Deployment](kong-zhi-qi/41.md)
 * [4.2. StatefulSet](kong-zhi-qi/42-statefulset.md)
-* 4.3. DaemonSet
-* 4.4. ReplicationController和ReplicaSet
-* 4.5. Job
+* [4.3. DaemonSet](kong-zhi-qi/43-daemonset.md)
+* [4.4. ReplicationController和ReplicaSet](kong-zhi-qi/44-replicationcontrollerhe-replicaset.md)
+* [4.5. Job](kong-zhi-qi/45-job.md)
 * [4.6. CronJob](kong-zhi-qi/46-cronjob.md)
 * [4.7. Horizontal Pod Autoscaling](kong-zhi-qi/47-horizontal-pod-autoscaling.md)
 
