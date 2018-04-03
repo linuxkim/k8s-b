@@ -76,11 +76,13 @@ WantedBy=multi-user.target
 HERE
 ```
 
-> k8s 1.8 开始需要 添加 --authorization-mode=Node
+> k8s 1.8 开始需要 添加 ：
 >
->  k8s 1.8 开始需要 添加 --admission-control=NodeRestriction
+> --authorization-mode=Node
 >
-> k8s 1.8 开始需要 添加 --audit-policy-file=/etc/kubernetes/ssl/audit-policy.yaml
+>  --admission-control=NodeRestriction
+>
+>  --audit-policy-file=/etc/kubernetes/ssl/audit-policy.yaml
 >
 > 这里面要注意的是 --service-node-port-range=300-9000 这个地方是 映射外部端口时 的端口范围，随机映射也在这个范围内映射，指定映射端口必须也在这个范围内。
 
@@ -165,7 +167,7 @@ HERE
 
 ```
 $ mkdir -p /root/.kube
-$ cp -f /etc/kubernetes/ssl/kubeconfig  /root/.kube/config 
+$ cp -f /etc/kubernetes/ssl/kubeconfig  /root/.kube/config
 ```
 
 ### 启动master节点服务
