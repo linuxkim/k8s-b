@@ -80,9 +80,9 @@ HERE
 >
 > --authorization-mode=Node
 >
->  --admission-control=NodeRestriction
+> --admission-control=NodeRestriction
 >
->  --audit-policy-file=/etc/kubernetes/ssl/audit-policy.yaml
+> --audit-policy-file=/etc/kubernetes/ssl/audit-policy.yaml
 >
 > 这里面要注意的是 --service-node-port-range=300-9000 这个地方是 映射外部端口时 的端口范围，随机映射也在这个范围内映射，指定映射端口必须也在这个范围内。
 
@@ -174,6 +174,12 @@ $ cp -f /etc/kubernetes/ssl/kubeconfig  /root/.kube/config
 
 ```
 systemctl daemon-reload && systemctl start flanneld docker kube-apiserver kube-controller-manager kube-scheduler && systemctl enable flanneld docker kube-apiserver kube-controller-manager kube-scheduler
+```
+
+\#验证 Master 节点
+
+```
+$ kubectl get componentstatuses
 ```
 
 
