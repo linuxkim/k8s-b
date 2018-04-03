@@ -44,6 +44,6 @@
 
 ## Kubernetes 实战
 
-* k8s 1.9.3 集群部署
+* Kubuernetes 1.9.3 集群部署
   * 环境说明
 
