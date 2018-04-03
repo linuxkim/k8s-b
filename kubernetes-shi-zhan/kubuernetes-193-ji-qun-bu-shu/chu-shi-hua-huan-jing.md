@@ -6,6 +6,7 @@
 $ systemctl stop firewalld
 $ systemctl disable firewalld
 $ systemctl status firewalld
+$ systemctl stop iptables
 ```
 
 \#关闭SELINUX
