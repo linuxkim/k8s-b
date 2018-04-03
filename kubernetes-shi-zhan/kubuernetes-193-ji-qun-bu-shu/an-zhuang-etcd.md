@@ -199,7 +199,7 @@ etcdctl --endpoints=https://172.20.20.4:2379,https://172.20.20.5:2379,https://17
   member list
 ```
 
-\#创建目录
+\#配置 flanneld 网络
 
 ```
 etcdctl --endpoints=https://172.20.20.4:2379,https://172.20.20.5:2379,https://172.20.20.6:2379 \
@@ -208,8 +208,6 @@ etcdctl --endpoints=https://172.20.20.4:2379,https://172.20.20.5:2379,https://17
   --key-file=/etc/kubernetes/ssl/etcd-key.pem \
   mkdir /kubernetes/network
 ```
-
-\#配置 flannel 网段
 
 ```
 etcdctl --endpoints=https://172.20.20.4:2379,https://172.20.20.5:2379,https://172.20.20.6:2379 \
@@ -226,7 +224,7 @@ etcdctl --endpoints=https://172.20.20.4:2379,https://172.20.20.5:2379,https://17
   --ca-file=/etc/kubernetes/ssl/k8s-root-ca.pem \
   --cert-file=/etc/kubernetes/ssl/etcd.pem \
   --key-file=/etc/kubernetes/ssl/etcd-key.pem \
-  get /kubernetes/network/config 
+  get /kubernetes/network/config
 ```
 
 
