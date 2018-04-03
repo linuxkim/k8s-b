@@ -231,16 +231,17 @@ kubectl get nodes
 ```
 ls /etc/kubernetes/ssl/kubelet.kubeconfig   
 /etc/kubernetes/ssl/kubelet.kubeconfig
-
 ```
 
-\# 密钥文件  \(这里注意如果 csr 被删除了，请删除如下文件，并重启 kubelet 服务\)
+\# 密钥文件  
 
 ```
 ls /etc/kubernetes/ssl/kubelet*
 /etc/kubernetes/ssl/kubelet-client.crt  /etc/kubernetes/ssl/kubelet.crt
 /etc/kubernetes/ssl/kubelet-client.key  /etc/kubernetes/ssl/kubelet.key
 ```
+
+> 如果 csr 被删除了，请删除如上文件，并重启 kubelet 服务
 
 
 
