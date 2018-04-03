@@ -40,6 +40,7 @@
   * [下发安装包](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/xia-fa-an-zhuang-bao.md)
   * [创建证书](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/chuang-jian-yan-zheng.md)
   * [安装etcd](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/an-zhuang-etcd.md)
+  * [部署Kubernetes集群](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/bu-shu-kubernetes-ji-qun.md)
 
 ## 存储
 
