@@ -42,5 +42,5 @@
 
 ## 安全
 
-## 66Kubernetes 实战
+## Kubernetes 实战
 
