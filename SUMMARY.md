@@ -28,7 +28,7 @@
 * 4.4. ReplicationController和ReplicaSet
 * 4.5. Job
 * 4.6. CronJob
-* 4.7. Horizontal Pod Autoscaling
+* [4.7. Horizontal Pod Autoscaling](kong-zhi-qi/47-horizontal-pod-autoscaling.md)
 
 ## 服务发现
 
@@ -45,4 +45,5 @@
 ## Kubernetes 实战
 
 * k8s 1.9.3 集群部署
+  * 环境说明
 
