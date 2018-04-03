@@ -2,8 +2,6 @@
 
 > 这里使用 CloudFlare 的 PKI 工具集 cfssl 来生成 Certificate Authority \(CA\) 证书和秘钥文件。
 
-
-
 \#安装证书工具CFSSL
 
 ```

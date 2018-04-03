@@ -39,6 +39,7 @@
   * [初始化环境](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/chu-shi-hua-huan-jing.md)
   * [下发安装包](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/xia-fa-an-zhuang-bao.md)
   * [创建证书](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/chuang-jian-yan-zheng.md)
+  * [安装etcd](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/an-zhuang-etcd.md)
 
 ## 存储
 
