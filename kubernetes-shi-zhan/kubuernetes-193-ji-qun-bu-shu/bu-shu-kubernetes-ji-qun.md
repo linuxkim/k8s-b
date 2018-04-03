@@ -33,8 +33,6 @@ $ cd /etc/kubernetes/ssl/
 $ cfssl gencert --ca k8s-root-ca.pem --ca-key k8s-root-ca-key.pem --config k8s-gencert.json --profile kubernetes admin-csr.json | cfssljson --bare admin
 ```
 
-
-
 ### 配置 kubectl kubeconfig 文件
 
 > 生成集群管理员admin kubeconfig配置文件供kubectl调用
@@ -77,8 +75,6 @@ $ kubectl config use-context kubernetes-admin@kubernetes \
 
 ### 创建 kubernetes 证书
 
-
-
 ```
 cat >/etc/kubernetes/ssl/kubernetes-csr.json  <<'HERE'
 {
@@ -113,8 +109,6 @@ HERE
 ```
 
 > 注意，此处需要将dns首ip、k8s-master、node节点的ip都填上, 这里的认证IP 可以多预留几个，以备后续添加新节点能通过认证，不需要重新签发
-
-
 
 \#生成 kubernetes 证书和私钥
 
@@ -151,7 +145,7 @@ EOF
 \# 生成高级审核配置文件
 
 ```
-cat >>/etc/kubernetes/ssl/audit-policy.yaml <<EOF
+$ cat >>/etc/kubernetes/ssl/audit-policy.yaml <<EOF
 # Log all requests at the Metadata level.
 apiVersion: audit.k8s.io/v1beta1
 kind: Policy
