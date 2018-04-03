@@ -224,7 +224,7 @@ kubectl get csr | awk '/Pending/ {print $1}' | xargs kubectl certificate approve
 kubectl get nodes
 ```
 
-> kubelet启动成功以后会自动生成配置文件与密钥
+\#kubelet启动成功以后会自动生成配置文件与密钥
 
 \# 配置文件
 
@@ -233,7 +233,7 @@ ls /etc/kubernetes/ssl/kubelet.kubeconfig
 /etc/kubernetes/ssl/kubelet.kubeconfig
 ```
 
-\# 密钥文件  
+\# 密钥文件
 
 ```
 ls /etc/kubernetes/ssl/kubelet*
