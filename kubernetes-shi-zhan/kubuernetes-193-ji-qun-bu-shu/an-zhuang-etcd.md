@@ -34,8 +34,6 @@ HERE
 
 > “hosts”中包含了所有需要连接etcd的节点ip，可以多预留几个，以备后续添加新的节点能直接认证，不需要重新签发证书。
 
-
-
 \# 生成 etcd 密钥
 
 ```
@@ -59,10 +57,10 @@ $ scp -r /etc/kubernetes/ssl/etcd*.pem 172.20.20.3:/etc/kubernetes/ssl/
 $ mkdir -p /var/lib/etcd/
 ```
 
-\# 创建etcd所需service文件 
+\# 创建etcd所需service文件
 
 ```
-#etcd-1
+#k8s-etcd-1
 
 cat >/lib/systemd/system/etcd.service  <<'HERE'
 [Unit]
@@ -76,7 +74,7 @@ Type=notify
 WorkingDirectory=/var/lib/etcd/
 EnvironmentFile=-/etc/etcd/etcd.conf
 ExecStart=/usr/local/bin/etcd \
---name=sz-fc-cs-k8s-etcd-20-4 \
+--name=k8s-etcd-1 \
 --cert-file=/etc/kubernetes/ssl/etcd.pem \
 --key-file=/etc/kubernetes/ssl/etcd-key.pem \
 --peer-cert-file=/etc/kubernetes/ssl/etcd.pem \
@@ -88,7 +86,7 @@ ExecStart=/usr/local/bin/etcd \
 --listen-client-urls=https://172.20.20.4:2379,http://127.0.0.1:2379 \
 --advertise-client-urls=https://172.20.20.4:2379 \
 --initial-cluster-token=etcd-cluster-0 \
---initial-cluster=sz-fc-cs-k8s-etcd-20-4=https://172.20.20.4:2380,sz-fc-cs-k8s-etcd-20-5=https://172.20.20.5:2380,sz-fc-cs-k8s-etcd-20-6=https://172.20.20.6:2380 \
+--initial-cluster=k8s-etcd-1=https://172.20.20.4:2380,k8s-etcd-2=https://172.20.20.5:2380,k8s-etcd-3=https://172.20.20.6:2380 \
 --initial-cluster-state=new \
 --data-dir=/var/lib/etcd
 Restart=on-failure
@@ -114,7 +112,7 @@ Type=notify
 WorkingDirectory=/var/lib/etcd/
 EnvironmentFile=-/etc/etcd/etcd.conf
 ExecStart=/usr/local/bin/etcd \
---name=sz-fc-cs-k8s-etcd-20-5 \
+--name=k8s-etcd-2 \
 --cert-file=/etc/kubernetes/ssl/etcd.pem \
 --key-file=/etc/kubernetes/ssl/etcd-key.pem \
 --peer-cert-file=/etc/kubernetes/ssl/etcd.pem \
@@ -126,7 +124,7 @@ ExecStart=/usr/local/bin/etcd \
 --listen-client-urls=https://172.20.20.5:2379,http://127.0.0.1:2379 \
 --advertise-client-urls=https://172.20.20.5:2379 \
 --initial-cluster-token=etcd-cluster-0 \
---initial-cluster=sz-fc-cs-k8s-etcd-20-4=https://172.20.20.4:2380,sz-fc-cs-k8s-etcd-20-5=https://172.20.20.5:2380,sz-fc-cs-k8s-etcd-20-6=https://172.20.20.6:2380 \
+--initial-cluster=k8s-etcd-1=https://172.20.20.4:2380,k8s-etcd-2=https://172.20.20.5:2380,k8s-etcd-3=https://172.20.20.6:2380 \
 --initial-cluster-state=new \
 --data-dir=/var/lib/etcd
 Restart=on-failure
@@ -152,7 +150,7 @@ Type=notify
 WorkingDirectory=/var/lib/etcd/
 EnvironmentFile=-/etc/etcd/etcd.conf
 ExecStart=/usr/local/bin/etcd \
---name=sz-fc-cs-k8s-etcd-20-6 \
+--name=k8s-etcd-3 \
 --cert-file=/etc/kubernetes/ssl/etcd.pem \
 --key-file=/etc/kubernetes/ssl/etcd-key.pem \
 --peer-cert-file=/etc/kubernetes/ssl/etcd.pem \
@@ -164,7 +162,7 @@ ExecStart=/usr/local/bin/etcd \
 --listen-client-urls=https://172.20.20.6:2379,http://127.0.0.1:2379 \
 --advertise-client-urls=https://172.20.20.6:2379 \
 --initial-cluster-token=etcd-cluster-0 \
---initial-cluster=sz-fc-cs-k8s-etcd-20-4=https://172.20.20.4:2380,sz-fc-cs-k8s-etcd-20-5=https://172.20.20.5:2380,sz-fc-cs-k8s-etcd-20-6=https://172.20.20.6:2380 \
+--initial-cluster=k8s-etcd-1=https://172.20.20.4:2380,k8s-etcd-2=https://172.20.20.5:2380,k8s-etcd-3=https://172.20.20.6:2380 \
 --initial-cluster-state=new \
 --data-dir=/var/lib/etcd
 Restart=on-failure
@@ -173,6 +171,62 @@ LimitNOFILE=65536
 [Install]
 WantedBy=multi-user.target
 HERE
+```
+
+\#启动etcd集群
+
+```
+$ systemctl daemon-reload && systemctl start etcd && systemctl enable etcd
+```
+
+\#检查集群健康
+
+```
+etcdctl --endpoints=https://172.20.20.4:2379,https://172.20.20.5:2379,https://172.20.20.6:2379 \
+  --ca-file=/etc/kubernetes/ssl/k8s-root-ca.pem \
+  --cert-file=/etc/kubernetes/ssl/etcd.pem \
+  --key-file=/etc/kubernetes/ssl/etcd-key.pem \
+  cluster-health
+```
+
+\#查看 etcd 集群成员
+
+```
+etcdctl --endpoints=https://172.20.20.4:2379,https://172.20.20.5:2379,https://172.20.20.6:2379 \
+  --ca-file=/etc/kubernetes/ssl/k8s-root-ca.pem \
+  --cert-file=/etc/kubernetes/ssl/etcd.pem \
+  --key-file=/etc/kubernetes/ssl/etcd-key.pem \
+  member list
+```
+
+\#创建目录
+
+```
+etcdctl --endpoints=https://172.20.20.4:2379,https://172.20.20.5:2379,https://172.20.20.6:2379 \
+  --ca-file=/etc/kubernetes/ssl/k8s-root-ca.pem \
+  --cert-file=/etc/kubernetes/ssl/etcd.pem \
+  --key-file=/etc/kubernetes/ssl/etcd-key.pem \
+  mkdir /kubernetes/network
+```
+
+\#配置 flannel 网段
+
+```
+etcdctl --endpoints=https://172.20.20.4:2379,https://172.20.20.5:2379,https://172.20.20.6:2379 \
+  --ca-file=/etc/kubernetes/ssl/k8s-root-ca.pem \
+  --cert-file=/etc/kubernetes/ssl/etcd.pem \
+  --key-file=/etc/kubernetes/ssl/etcd-key.pem \
+  mk /kubernetes/network/config '{ "Network": "10.8.0.0/16", "Backend": { "Type": "vxlan", "VNI": 1 }}'
+```
+
+\#查看网络设置
+
+```
+etcdctl --endpoints=https://172.20.20.4:2379,https://172.20.20.5:2379,https://172.20.20.6:2379 \
+  --ca-file=/etc/kubernetes/ssl/k8s-root-ca.pem \
+  --cert-file=/etc/kubernetes/ssl/etcd.pem \
+  --key-file=/etc/kubernetes/ssl/etcd-key.pem \
+  get /kubernetes/network/config 
 ```
 
 
