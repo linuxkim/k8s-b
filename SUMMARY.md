@@ -27,7 +27,7 @@
 * 4.3. DaemonSet
 * 4.4. ReplicationController和ReplicaSet
 * 4.5. Job
-* 4.6. CronJob
+* [4.6. CronJob](kong-zhi-qi/46-cronjob.md)
 * [4.7. Horizontal Pod Autoscaling](kong-zhi-qi/47-horizontal-pod-autoscaling.md)
 
 ## 服务发现
@@ -47,4 +47,5 @@
 * Kubuernetes 1.9.3 集群部署
   * 环境说明
   * 初始化环境
+  * 创建验证
 
