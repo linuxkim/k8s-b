@@ -154,5 +154,53 @@ rules:
 EOF
 ```
 
+### 创建 kube-apiserver.service 文件
+
+```
+cat >/lib/systemd/system/kube-apiserver.service  <<'HERE'
+[Unit]
+Description=Kubernetes API Server
+Documentation=https://github.com/GoogleCloudPlatform/kubernetes
+After=network.target
+[Service]
+ExecStart=/usr/local/bin/kube-apiserver \
+--admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,ResourceQuota,NodeRestriction \
+--advertise-address=172.20.20.1 \
+--bind-address=172.20.20.1 \
+--insecure-bind-address=127.0.0.1 \
+--kubelet-https=true \
+--runtime-config=rbac.authorization.k8s.io/v1beta1 \
+--authorization-mode=RBAC,Node \
+--enable-bootstrap-token-auth \
+--token-auth-file=/etc/kubernetes/ssl/token.csv \
+--service-cluster-ip-range=10.6.0.0/16 \
+--service-node-port-range=300-9000 \
+--tls-cert-file=/etc/kubernetes/ssl/kubernetes.pem \
+--tls-private-key-file=/etc/kubernetes/ssl/kubernetes-key.pem \
+--client-ca-file=/etc/kubernetes/ssl/k8s-root-ca.pem \
+--service-account-key-file=/etc/kubernetes/ssl/k8s-root-ca-key.pem \
+--etcd-cafile=/etc/kubernetes/ssl/k8s-root-ca.pem \
+--etcd-certfile=/etc/kubernetes/ssl/etcd.pem \
+--etcd-keyfile=/etc/kubernetes/ssl/etcd-key.pem \
+--etcd-servers=https://172.20.20.4:2379,https://172.20.20.5:2379,https://172.20.20.6:2379 \
+--enable-swagger-ui=true \
+--allow-privileged=true \
+--audit-policy-file=/etc/kubernetes/ssl/audit-policy.yaml \
+--apiserver-count=3 \
+--audit-log-maxage=30 \
+--audit-log-maxbackup=3 \
+--audit-log-maxsize=100 \
+--audit-log-path=/var/lib/audit.log \
+--event-ttl=1h \
+--v=2
+Restart=on-failure
+RestartSec=5
+Type=notify
+LimitNOFILE=65536
+[Install]
+WantedBy=multi-user.target
+HERE
+```
+
 
 
