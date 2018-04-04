@@ -3,7 +3,7 @@
 \#创建 etcd 证书配置
 
 ```
-cat >/etc/kubernetes/ssl/etcd-csr.json  <<'HERE'
+[root@k8s-master ssl]# cat >/etc/kubernetes/ssl/etcd-csr.json  <<'HERE'
 {
     "CN": "etcd",
     "hosts": [
@@ -37,27 +37,29 @@ HERE
 \# 生成 etcd 密钥
 
 ```
-$ cfssl gencert --ca k8s-root-ca.pem --ca-key k8s-root-ca-key.pem --config k8s-gencert.json --profile kubernetes etcd-csr.json | cfssljson --bare etcd
+[root@k8s-master ssl]# cfssl gencert --ca k8s-root-ca.pem --ca-key k8s-root-ca-key.pem --config k8s-gencert.json --profile kubernetes etcd-csr.json | cfssljson --bare etcd
 ```
 
 \#下发证书到etcd各节点及包含运行着flanneld的节点。
 
 ```
-$ scp -r /etc/kubernetes/ssl/etcd*.pem 172.20.20.4:/etc/kubernetes/ssl/
-$ scp -r /etc/kubernetes/ssl/etcd*.pem 172.20.20.5:/etc/kubernetes/ssl/
-$ scp -r /etc/kubernetes/ssl/etcd*.pem 172.20.20.6:/etc/kubernetes/ssl/
+[root@k8s-master ssl]# scp -r /etc/kubernetes/ssl/etcd*.pem 172.20.20.4:/etc/kubernetes/ssl/
+[root@k8s-master ssl]# scp -r /etc/kubernetes/ssl/etcd*.pem 172.20.20.5:/etc/kubernetes/ssl/
+[root@k8s-master ssl]# scp -r /etc/kubernetes/ssl/etcd*.pem 172.20.20.6:/etc/kubernetes/ssl/
 
-$ scp -r /etc/kubernetes/ssl/etcd*.pem 172.20.20.2:/etc/kubernetes/ssl/
-$ scp -r /etc/kubernetes/ssl/etcd*.pem 172.20.20.3:/etc/kubernetes/ssl/
+[root@k8s-master ssl]# scp -r /etc/kubernetes/ssl/etcd*.pem 172.20.20.2:/etc/kubernetes/ssl/
+[root@k8s-master ssl]# scp -r /etc/kubernetes/ssl/etcd*.pem 172.20.20.3:/etc/kubernetes/ssl/
 ```
 
 \# 创建 etcd各节点 data 目录
 
 ```
-$ mkdir -p /var/lib/etcd/
+[root@k8s-master ssl]# ssh 172.20.20.4 "mkdir -p /var/lib/etcd/"
+[root@k8s-master ssl]# ssh 172.20.20.5 "mkdir -p /var/lib/etcd/"
+[root@k8s-master ssl]# ssh 172.20.20.6 "mkdir -p /var/lib/etcd/"
 ```
 
-\# 创建etcd所需service文件
+\# 创建etcd所需service文件（看清楚主机名）
 
 ```
 #k8s-etcd-1
