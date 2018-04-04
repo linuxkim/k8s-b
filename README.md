@@ -11,10 +11,7 @@
 # 社区&问答
 
 * **微信群**：容器技术交流群，进群请添加我的微信号：kim\_jc（二维码在下方），然后邀请入群，添加时请备注姓名及公司，谢谢！
-* **QQ群**：25065717
 * **问答**：[http://www.linux.xyz/docs/kubernetes](http://www.linux.xyz/topic/Kubernetes)
 
 ![](/assets/微信图片_20180404111318.png)
-
-
 
