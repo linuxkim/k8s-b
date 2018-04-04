@@ -33,7 +33,7 @@ $ yum makecache
 \#移除其它版本Docker
 
 ```
-$ yum remove docker
+$ yum remove docker -y
 ```
 
 \#安装docker
