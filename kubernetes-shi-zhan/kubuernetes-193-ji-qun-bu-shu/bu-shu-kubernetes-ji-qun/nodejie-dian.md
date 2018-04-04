@@ -6,7 +6,7 @@
 
 ```
 [root@k8s-master ~]#  cd /etc/kubernetes/ssl/
-[root@k8s-master ~]#  kubectl config set-cluster kubernetes \
+[root@k8s-master ssl]#  kubectl config set-cluster kubernetes \
   --certificate-authority=k8s-root-ca.pem \
   --embed-certs=true \
   --server=https://172.20.20.1:6443 \
@@ -16,7 +16,7 @@
 \# 配置客户端认证
 
 ```
-[root@k8s-master ~]#  kubectl config set-credentials kubelet-bootstrap \
+[root@k8s-master ssl]#  kubectl config set-credentials kubelet-bootstrap \
   --token=${BOOTSTRAP_TOKEN} \
   --kubeconfig=bootstrap.kubeconfig
 ```
@@ -24,7 +24,7 @@
 \# 配置关联
 
 ```
-[root@k8s-master ~]#  kubectl config set-context default \
+[root@k8s-master ssl]#  kubectl config set-context default \
   --cluster=kubernetes \
   --user=kubelet-bootstrap \
   --kubeconfig=bootstrap.kubeconfig
@@ -33,14 +33,14 @@
 \# 配置默认关联
 
 ```
-[root@k8s-master ~]#  kubectl config use-context default --kubeconfig=bootstrap.kubeconfig
+[root@k8s-master ssl]#  kubectl config use-context default --kubeconfig=bootstrap.kubeconfig
 ```
 
 \#下发 bootstrap.kubeconfig 文件
 
 ```
-[root@k8s-master ~]#  scp /etc/kubernetes/ssl/bootstrap.kubeconfig 172.20.20.2:/etc/kubernetes/ssl
-[root@k8s-master ~]#  scp /etc/kubernetes/ssl/bootstrap.kubeconfig 172.20.20.3:/etc/kubernetes/ssl
+[root@k8s-master ssl]#  scp /etc/kubernetes/ssl/bootstrap.kubeconfig 172.20.20.2:/etc/kubernetes/ssl
+[root@k8s-master ssl]#  scp /etc/kubernetes/ssl/bootstrap.kubeconfig 172.20.20.3:/etc/kubernetes/ssl
 ```
 
 ### 创建 kubelet.service 文件
