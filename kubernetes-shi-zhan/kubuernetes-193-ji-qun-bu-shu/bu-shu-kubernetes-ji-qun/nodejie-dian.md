@@ -5,9 +5,9 @@
 \# 配置集群
 
 ```
-$ cd /etc/kubernetes/ssl/
+[root@k8s-master ~]#  cd /etc/kubernetes/ssl/
 
-$ kubectl config set-cluster kubernetes \
+[root@k8s-master ~]#  kubectl config set-cluster kubernetes \
   --certificate-authority=k8s-root-ca.pem \
   --embed-certs=true \
   --server=https://172.20.20.1:6443 \
@@ -17,7 +17,7 @@ $ kubectl config set-cluster kubernetes \
 \# 配置客户端认证
 
 ```
-$ kubectl config set-credentials kubelet-bootstrap \
+[root@k8s-master ~]#  kubectl config set-credentials kubelet-bootstrap \
   --token=${BOOTSTRAP_TOKEN} \
   --kubeconfig=bootstrap.kubeconfig
 ```
@@ -25,7 +25,7 @@ $ kubectl config set-credentials kubelet-bootstrap \
 \# 配置关联
 
 ```
-$ kubectl config set-context default \
+[root@k8s-master ~]#  kubectl config set-context default \
   --cluster=kubernetes \
   --user=kubelet-bootstrap \
   --kubeconfig=bootstrap.kubeconfig
@@ -34,14 +34,14 @@ $ kubectl config set-context default \
 \# 配置默认关联
 
 ```
-$ kubectl config use-context default --kubeconfig=bootstrap.kubeconfig
+[root@k8s-master ~]#  kubectl config use-context default --kubeconfig=bootstrap.kubeconfig
 ```
 
 \#下发 bootstrap.kubeconfig 文件
 
 ```
-$ scp /etc/kubernetes/ssl/bootstrap.kubeconfig 172.20.20.2:/etc/kubernetes/ssl
-$ scp /etc/kubernetes/ssl/bootstrap.kubeconfig 172.20.20.3:/etc/kubernetes/ssl
+[root@k8s-master ~]#  scp /etc/kubernetes/ssl/bootstrap.kubeconfig 172.20.20.2:/etc/kubernetes/ssl
+[root@k8s-master ~]#  scp /etc/kubernetes/ssl/bootstrap.kubeconfig 172.20.20.3:/etc/kubernetes/ssl
 ```
 
 ### 创建 kubelet.service 文件
@@ -49,13 +49,14 @@ $ scp /etc/kubernetes/ssl/bootstrap.kubeconfig 172.20.20.3:/etc/kubernetes/ssl
 \# 创建 kubelet 目录
 
 ```
-$ mkdir /var/lib/kubelet
+[root@k8s-node-1 ~]# mkdir /var/lib/kubelet
+[root@k8s-node-2 ~]# mkdir /var/lib/kubelet
 ```
 
 ```
 #k8s-node-1
 
-cat >/lib/systemd/system/kubelet.service  <<'HERE'
+[root@k8s-node-1 ~]# cat >/lib/systemd/system/kubelet.service  <<'HERE'
 [Unit]
 Description=Kubernetes Kubelet
 Documentation=https://github.com/GoogleCloudPlatform/kubernetes
@@ -100,7 +101,7 @@ HERE
 ```
 #k8s-node-1
 
-cat >/lib/systemd/system/flanneld.service  <<'HERE'
+[root@k8s-node-1 ~]# cat >/lib/systemd/system/flanneld.service  <<'HERE'
 [Unit]
 Description=Flanneld overlay address etcd agent
 After=network.target
@@ -128,7 +129,7 @@ HERE
 ```
 #k8s-node-2
 
-cat >/lib/systemd/system/kubelet.service  <<'HERE'
+[root@k8s-node-2 ~]# cat >/lib/systemd/system/kubelet.service  <<'HERE'
 [Unit]
 Description=Kubernetes Kubelet
 Documentation=https://github.com/GoogleCloudPlatform/kubernetes
@@ -165,7 +166,7 @@ HERE
 ```
 #k8s-node-2
 
-cat >/lib/systemd/system/flanneld.service  <<'HERE'
+[root@k8s-node-2 ~]# cat >/lib/systemd/system/flanneld.service  <<'HERE'
 [Unit]
 Description=Flanneld overlay address etcd agent
 After=network.target
@@ -193,7 +194,8 @@ HERE
 ### 启动node节点服务
 
 ```
-systemctl daemon-reload && systemctl start flanneld docker kubelet && systemctl enable flanneld docker kubelet
+[root@k8s-node-1 ~]# systemctl daemon-reload && systemctl start flanneld docker kubelet && systemctl enable flanneld docker kubelet
+[root@k8s-node-2 ~]# systemctl daemon-reload && systemctl start flanneld docker kubelet && systemctl enable flanneld docker kubelet
 ```
 
 > kubelet 启动时向 kube-apiserver 发送 TLS bootstrapping 请求，需要先将 bootstrap token 文件中的 kubelet-bootstrap 用户赋予 system:node-bootstrapper 角色，然后 kubelet 才有权限创建认证请求\(certificatesigningrequests\)。
@@ -201,7 +203,7 @@ systemctl daemon-reload && systemctl start flanneld docker kubelet && systemctl 
 \# 在master机器上执行，授权kubelet-bootstrap角色
 
 ```
-kubectl create clusterrolebinding kubelet-bootstrap \
+[root@k8s-master ~]# kubectl create clusterrolebinding kubelet-bootstrap \
   --clusterrole=system:node-bootstrapper \
   --user=kubelet-bootstrap
 ```
@@ -209,19 +211,19 @@ kubectl create clusterrolebinding kubelet-bootstrap \
 \# 查看 csr 的名称
 
 ```
-kubectl get csr
+[root@k8s-master ~]# kubectl get csr
 ```
 
 \# 增加 认证
 
 ```
-kubectl get csr | awk '/Pending/ {print $1}' | xargs kubectl certificate approve
+[root@k8s-master ~]# kubectl get csr | awk '/Pending/ {print $1}' | xargs kubectl certificate approve
 ```
 
 \#验证 nodes
 
 ```
-kubectl get nodes
+[root@k8s-master ~]# kubectl get nodes
 ```
 
 \#kubelet启动成功以后会自动生成配置文件与密钥
@@ -229,14 +231,14 @@ kubectl get nodes
 \# 配置文件
 
 ```
-ls /etc/kubernetes/ssl/kubelet.kubeconfig   
+[root@k8s-node-1 ~]# ls /etc/kubernetes/ssl/kubelet.kubeconfig   
 /etc/kubernetes/ssl/kubelet.kubeconfig
 ```
 
 \# 密钥文件
 
 ```
-ls /etc/kubernetes/ssl/kubelet*
+[root@k8s-node-1 ~]# ls /etc/kubernetes/ssl/kubelet*
 /etc/kubernetes/ssl/kubelet-client.crt  /etc/kubernetes/ssl/kubelet.crt
 /etc/kubernetes/ssl/kubelet-client.key  /etc/kubernetes/ssl/kubelet.key
 ```
