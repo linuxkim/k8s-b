@@ -211,6 +211,9 @@ HERE
 
 ```
 [root@k8s-master ~]# kubectl get csr
+NAME                                                   AGE       REQUESTOR           CONDITION
+node-csr-DRSFk1kmkeaIVuPW5WCjSgMrX61DTmpZ_lC0L6Ms0Y0   1m        kubelet-bootstrap   Pending
+node-csr-nzvjyp4vNcTGyXRPKUEFiT3D0li2ytWxjFKWkLwqh4U   1m        kubelet-bootstrap   Pending
 ```
 
 \# 增加 认证
