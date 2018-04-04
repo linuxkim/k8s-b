@@ -5,7 +5,7 @@
 > 需要为kubectl 与 kube-apiserver 之间的https通信提供 TLS 证书和秘钥。
 
 ```
-cat >/etc/kubernetes/ssl/admin-csr.json  <<'HERE'
+[root@k8s-master ~]# cat >/etc/kubernetes/ssl/admin-csr.json  <<'HERE'
 {
   "CN": "admin",
   "hosts": [],
@@ -29,8 +29,8 @@ HERE
 \# 生成 admin 证书和私钥
 
 ```
-$ cd /etc/kubernetes/ssl/
-$ cfssl gencert --ca k8s-root-ca.pem --ca-key k8s-root-ca-key.pem --config k8s-gencert.json --profile kubernetes admin-csr.json | cfssljson --bare admin
+[root@k8s-master ~]# cd /etc/kubernetes/ssl/
+[root@k8s-master ssl]# cfssl gencert --ca k8s-root-ca.pem --ca-key k8s-root-ca-key.pem --config k8s-gencert.json --profile kubernetes admin-csr.json | cfssljson --bare admin
 ```
 
 ### 配置 kubectl kubeconfig 文件
@@ -40,7 +40,7 @@ $ cfssl gencert --ca k8s-root-ca.pem --ca-key k8s-root-ca-key.pem --config k8s-g
 \# 配置 kubernetes 集群
 
 ```
-$ kubectl config set-cluster kubernetes \
+[root@k8s-master ssl]# kubectl config set-cluster kubernetes \
     --certificate-authority=k8s-root-ca.pem\
     --embed-certs=true \
     --server=https://172.20.20.1:6443 \
@@ -50,7 +50,7 @@ $ kubectl config set-cluster kubernetes \
 \# 配置 客户端认证
 
 ```
-$ kubectl config set-credentials kubernetes-admin \
+[root@k8s-master ssl]# kubectl config set-credentials kubernetes-admin \
     --client-certificate=admin.pem \
     --client-key=admin-key.pem \
     --embed-certs=true \
@@ -60,7 +60,7 @@ $ kubectl config set-credentials kubernetes-admin \
 \# 配置关联
 
 ```
-$ kubectl config set-context kubernetes-admin@kubernetes \
+[root@k8s-master ssl]# kubectl config set-context kubernetes-admin@kubernetes \
     --cluster=kubernetes \
     --user=kubernetes-admin \
     --kubeconfig=./kubeconfig
@@ -69,14 +69,14 @@ $ kubectl config set-context kubernetes-admin@kubernetes \
 \# 配置默认关联
 
 ```
-$ kubectl config use-context kubernetes-admin@kubernetes \
+[root@k8s-master ssl]# kubectl config use-context kubernetes-admin@kubernetes \
     --kubeconfig=./kubeconfig
 ```
 
 ### 创建 kubernetes 证书
 
 ```
-cat >/etc/kubernetes/ssl/kubernetes-csr.json  <<'HERE'
+[root@k8s-master ssl]# cat >/etc/kubernetes/ssl/kubernetes-csr.json  <<'HERE'
 {
     "CN": "kubernetes",
     "hosts": [
@@ -113,15 +113,14 @@ HERE
 \#生成 kubernetes 证书和私钥
 
 ```
-$ cd /etc/kubernetes/ssl/
-$ cfssl gencert --ca k8s-root-ca.pem --ca-key k8s-root-ca-key.pem --config k8s-gencert.json --profile kubernetes kubernetes-csr.json | cfssljson --bare kubernetes
+[root@k8s-master ssl]# cfssl gencert --ca k8s-root-ca.pem --ca-key k8s-root-ca-key.pem --config k8s-gencert.json --profile kubernetes kubernetes-csr.json | cfssljson --bare kubernetes
 ```
 
 \#下发证书到master,node服务器
 
 ```
-$ scp -r /etc/kubernetes/ssl/kubernetes*.pem 172.20.20.2:/etc/kubernetes/ssl/
-$ scp -r /etc/kubernetes/ssl/kubernetes*.pem 172.20.20.3:/etc/kubernetes/ssl/
+[root@k8s-master ssl]# scp -r /etc/kubernetes/ssl/kubernetes*.pem 172.20.20.2:/etc/kubernetes/ssl/
+[root@k8s-master ssl]# scp -r /etc/kubernetes/ssl/kubernetes*.pem 172.20.20.3:/etc/kubernetes/ssl/
 ```
 
 
