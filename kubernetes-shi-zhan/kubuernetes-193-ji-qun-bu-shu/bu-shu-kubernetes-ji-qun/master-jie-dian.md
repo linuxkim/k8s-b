@@ -5,13 +5,13 @@
 \# 生成 token
 
 ```
-$ export BOOTSTRAP_TOKEN=$(head -c 16 /dev/urandom | od -An -t x | tr -d ' ')
+[root@k8s-master ~]# export BOOTSTRAP_TOKEN=$(head -c 16 /dev/urandom | od -An -t x | tr -d ' ')
 ```
 
 \# 创建 token.csv 文件
 
 ```
-$ cat >/etc/kubernetes/ssl/token.csv <<EOF
+[root@k8s-master ~]# cat >/etc/kubernetes/ssl/token.csv <<EOF
 ${BOOTSTRAP_TOKEN},kubelet-bootstrap,10001,"system:kubelet-bootstrap"
 EOF
 ```
@@ -19,7 +19,7 @@ EOF
 \# 生成高级审核配置文件
 
 ```
-$ cat >>/etc/kubernetes/ssl/audit-policy.yaml <<EOF
+[root@k8s-master ~]# cat >>/etc/kubernetes/ssl/audit-policy.yaml <<EOF
 # Log all requests at the Metadata level.
 apiVersion: audit.k8s.io/v1beta1
 kind: Policy
@@ -31,7 +31,7 @@ EOF
 ### 创建 kube-apiserver.service 文件
 
 ```
-cat >/lib/systemd/system/kube-apiserver.service  <<'HERE'
+[root@k8s-master ~]# cat >/lib/systemd/system/kube-apiserver.service  <<'HERE'
 [Unit]
 Description=Kubernetes API Server
 Documentation=https://github.com/GoogleCloudPlatform/kubernetes
@@ -91,7 +91,7 @@ HERE
 \# 创建 kube-controller-manager.service 文件
 
 ```
-cat >/lib/systemd/system/kube-controller-manager.service  <<'HERE'
+[root@k8s-master ~]# cat >/lib/systemd/system/kube-controller-manager.service  <<'HERE'
 [Unit]
 Description=Kubernetes Controller Manager
 Documentation=https://github.com/GoogleCloudPlatform/kubernetes
@@ -121,7 +121,7 @@ HERE
 \# 创建 kube-cheduler.service 文件
 
 ```
-cat >/lib/systemd/system/kube-scheduler.service  <<'HERE'
+[root@k8s-master ~]# cat >/lib/systemd/system/kube-scheduler.service  <<'HERE'
 [Unit]
 Description=Kubernetes Scheduler
 Documentation=https://github.com/GoogleCloudPlatform/kubernetes
@@ -136,50 +136,27 @@ RestartSec=5
 [Install]
 WantedBy=multi-user.target
 HERE
-
-#flanneld.service
-cat >/lib/systemd/system/flanneld.service  <<'HERE'
-[Unit]
-Description=Flanneld overlay address etcd agent
-After=network.target
-After=network-online.target
-Wants=network-online.target
-After=etcd.service
-Before=docker.service
-[Service]
-Type=notify
-ExecStart=/usr/local/bin/flanneld \
--etcd-cafile=/etc/kubernetes/ssl/k8s-root-ca.pem \
--etcd-certfile=/etc/kubernetes/ssl/etcd.pem \
--etcd-keyfile=/etc/kubernetes/ssl/etcd-key.pem \
--etcd-endpoints=https://172.20.20.4:2379,https://172.20.20.5:2379,https://172.20.20.6:2379 \
--etcd-prefix=/kubernetes/network \
--iface=ens160
-ExecStartPost=/usr/local/bin/mk-docker-opts.sh -k DOCKER_NETWORK_OPTIONS -d /run/flannel/docker
-Restart=on-failure
-[Install]
-WantedBy=multi-user.target
-RequiredBy=docker.service
-HERE
 ```
+
+### 配置 flanneld
 
 \#创建master /root/.kube 目录,复制超级admin授权config
 
 ```
-$ mkdir -p /root/.kube
-$ cp -f /etc/kubernetes/ssl/kubeconfig  /root/.kube/config
+[root@k8s-master ~]# mkdir -p /root/.kube
+[root@k8s-master ~]# cp -f /etc/kubernetes/ssl/kubeconfig  /root/.kube/config
 ```
 
 ### 启动master节点服务
 
 ```
-systemctl daemon-reload && systemctl start flanneld docker kube-apiserver kube-controller-manager kube-scheduler && systemctl enable flanneld docker kube-apiserver kube-controller-manager kube-scheduler
+[root@k8s-master ~]# systemctl daemon-reload && systemctl start flanneld docker kube-apiserver kube-controller-manager kube-scheduler && systemctl enable flanneld docker kube-apiserver kube-controller-manager kube-scheduler
 ```
 
 \#验证 Master 节点
 
 ```
-$ kubectl get componentstatuses
+[root@k8s-master ~]# kubectl get componentstatuses
 ```
 
 
