@@ -235,19 +235,13 @@ node-csr-nzvjyp4vNcTGyXRPKUEFiT3D0li2ytWxjFKWkLwqh4U   1m        kubelet-bootstr
 
 \#kubelet启动成功以后会自动生成配置文件与密钥
 
-\# 配置文件
-
 ```
-[root@k8s-node-1 ~]# ls /etc/kubernetes/ssl/kubelet.kubeconfig   
-/etc/kubernetes/ssl/kubelet.kubeconfig
-```
-
-\# 密钥文件
-
-```
-[root@k8s-node-1 ~]# ls /etc/kubernetes/ssl/kubelet*
-/etc/kubernetes/ssl/kubelet-client.crt  /etc/kubernetes/ssl/kubelet.crt
-/etc/kubernetes/ssl/kubelet-client.key  /etc/kubernetes/ssl/kubelet.key
+[root@k8s-node-1 ~]# ls -l /etc/kubernetes/ssl/kubelet*
+-rw-r--r-- 1 root root 1407 4月   4 17:42 /etc/kubernetes/ssl/kubelet-client.crt
+-rw------- 1 root root  227 4月   4 17:40 /etc/kubernetes/ssl/kubelet-client.key
+-rw-r--r-- 1 root root 1164 4月   4 16:46 /etc/kubernetes/ssl/kubelet.crt
+-rw------- 1 root root 1675 4月   4 16:46 /etc/kubernetes/ssl/kubelet.key
+-rw------- 1 root root 3210 4月   4 17:42 /etc/kubernetes/ssl/kubelet.kubeconfig
 ```
 
 > 如果 csr 被删除了，请删除如上文件，并重启 kubelet 服务
