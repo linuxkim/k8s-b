@@ -14,7 +14,5 @@
 * **QQ群**：25065717
 * **问答**：[http://www.linux.xyz/docs/kubernetes/](http://www.linux.xyz/topic/Kubernetes)  
 
-![](/assets/微信图片_20180404111318.png)
-
-
+                                                            ![](/assets/微信图片_20180404111318.png)
 
