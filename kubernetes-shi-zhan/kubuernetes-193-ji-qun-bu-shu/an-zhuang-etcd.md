@@ -64,7 +64,7 @@ HERE
 ```
 #k8s-etcd-1
 
-cat >/lib/systemd/system/etcd.service  <<'HERE'
+[root@k8s-etcd-1 ~]# cat >/lib/systemd/system/etcd.service  <<'HERE'
 [Unit]
 Description=Etcd Server
 After=network.target
@@ -102,7 +102,7 @@ HERE
 ```
 #etcd-2
 
-cat >/lib/systemd/system/etcd.service  <<'HERE'
+[root@k8s-etcd-2 ~]# cat >/lib/systemd/system/etcd.service  <<'HERE'
 [Unit]
 Description=Etcd Server
 After=network.target
@@ -140,7 +140,7 @@ HERE
 ```
 #etcd-3
 
-cat >/lib/systemd/system/etcd.service  <<'HERE'
+[root@k8s-etcd-3 ~]# cat >/lib/systemd/system/etcd.service  <<'HERE'
 [Unit]
 Description=Etcd Server
 After=network.target
@@ -178,13 +178,15 @@ HERE
 \#启动etcd集群
 
 ```
-$ systemctl daemon-reload && systemctl start etcd && systemctl enable etcd
+[root@k8s-etcd-1 ~]# systemctl daemon-reload && systemctl start etcd && systemctl enable etcd
+[root@k8s-etcd-2 ~]# systemctl daemon-reload && systemctl start etcd && systemctl enable etcd
+[root@k8s-etcd-3 ~]# systemctl daemon-reload && systemctl start etcd && systemctl enable etcd
 ```
 
 \#检查集群健康
 
 ```
-etcdctl --endpoints=https://172.20.20.4:2379,https://172.20.20.5:2379,https://172.20.20.6:2379 \
+[root@k8s-etcd-1 ~]# etcdctl --endpoints=https://172.20.20.4:2379,https://172.20.20.5:2379,https://172.20.20.6:2379 \
   --ca-file=/etc/kubernetes/ssl/k8s-root-ca.pem \
   --cert-file=/etc/kubernetes/ssl/etcd.pem \
   --key-file=/etc/kubernetes/ssl/etcd-key.pem \
@@ -194,7 +196,7 @@ etcdctl --endpoints=https://172.20.20.4:2379,https://172.20.20.5:2379,https://17
 \#查看 etcd 集群成员
 
 ```
-etcdctl --endpoints=https://172.20.20.4:2379,https://172.20.20.5:2379,https://172.20.20.6:2379 \
+[root@k8s-etcd-1 ~]# etcdctl --endpoints=https://172.20.20.4:2379,https://172.20.20.5:2379,https://172.20.20.6:2379 \
   --ca-file=/etc/kubernetes/ssl/k8s-root-ca.pem \
   --cert-file=/etc/kubernetes/ssl/etcd.pem \
   --key-file=/etc/kubernetes/ssl/etcd-key.pem \
@@ -204,7 +206,7 @@ etcdctl --endpoints=https://172.20.20.4:2379,https://172.20.20.5:2379,https://17
 \#配置 flanneld 网络
 
 ```
-etcdctl --endpoints=https://172.20.20.4:2379,https://172.20.20.5:2379,https://172.20.20.6:2379 \
+[root@k8s-etcd-1 ~]# etcdctl --endpoints=https://172.20.20.4:2379,https://172.20.20.5:2379,https://172.20.20.6:2379 \
   --ca-file=/etc/kubernetes/ssl/k8s-root-ca.pem \
   --cert-file=/etc/kubernetes/ssl/etcd.pem \
   --key-file=/etc/kubernetes/ssl/etcd-key.pem \
@@ -212,7 +214,7 @@ etcdctl --endpoints=https://172.20.20.4:2379,https://172.20.20.5:2379,https://17
 ```
 
 ```
-etcdctl --endpoints=https://172.20.20.4:2379,https://172.20.20.5:2379,https://172.20.20.6:2379 \
+[root@k8s-etcd-1 ~]# etcdctl --endpoints=https://172.20.20.4:2379,https://172.20.20.5:2379,https://172.20.20.6:2379 \
   --ca-file=/etc/kubernetes/ssl/k8s-root-ca.pem \
   --cert-file=/etc/kubernetes/ssl/etcd.pem \
   --key-file=/etc/kubernetes/ssl/etcd-key.pem \
@@ -222,7 +224,7 @@ etcdctl --endpoints=https://172.20.20.4:2379,https://172.20.20.5:2379,https://17
 \#查看网络设置
 
 ```
-etcdctl --endpoints=https://172.20.20.4:2379,https://172.20.20.5:2379,https://172.20.20.6:2379 \
+[root@k8s-etcd-1 ~]# etcdctl --endpoints=https://172.20.20.4:2379,https://172.20.20.5:2379,https://172.20.20.6:2379 \
   --ca-file=/etc/kubernetes/ssl/k8s-root-ca.pem \
   --cert-file=/etc/kubernetes/ssl/etcd.pem \
   --key-file=/etc/kubernetes/ssl/etcd-key.pem \
