@@ -220,6 +220,11 @@ node-csr-nzvjyp4vNcTGyXRPKUEFiT3D0li2ytWxjFKWkLwqh4U   1m        kubelet-bootstr
 
 ```
 [root@k8s-master ~]# kubectl get csr | awk '/Pending/ {print $1}' | xargs kubectl certificate approve
+
+[root@k8s-master ~]# kubectl get csr
+NAME                                                   AGE       REQUESTOR           CONDITION
+node-csr-DRSFk1kmkeaIVuPW5WCjSgMrX61DTmpZ_lC0L6Ms0Y0   2m        kubelet-bootstrap   Approved,Issued
+node-csr-nzvjyp4vNcTGyXRPKUEFiT3D0li2ytWxjFKWkLwqh4U   1m        kubelet-bootstrap   Approved,Issued
 ```
 
 \#验证 nodes
