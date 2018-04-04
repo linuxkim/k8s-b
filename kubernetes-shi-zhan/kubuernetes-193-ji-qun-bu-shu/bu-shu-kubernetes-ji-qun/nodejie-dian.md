@@ -231,6 +231,9 @@ node-csr-nzvjyp4vNcTGyXRPKUEFiT3D0li2ytWxjFKWkLwqh4U   1m        kubelet-bootstr
 
 ```
 [root@k8s-master ~]# kubectl get nodes
+NAME                     STATUS     ROLES     AGE       VERSION
+k8s-node-1               Ready      <none>    40s       v1.9.3
+k8s-node-2               Ready      <none>    40s       v1.9.3
 ```
 
 \#kubelet启动成功以后会自动生成配置文件与密钥
