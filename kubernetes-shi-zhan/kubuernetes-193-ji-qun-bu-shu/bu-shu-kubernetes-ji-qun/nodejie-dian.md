@@ -89,7 +89,7 @@ WantedBy=multi-user.target
 HERE
 ```
 
-> sz-fc-cs-k8s-node-20-2    本机hostname
+> k8s-node-1    本机hostname
 >
 > 10.6.0.2       预分配的 dns 地址
 >
