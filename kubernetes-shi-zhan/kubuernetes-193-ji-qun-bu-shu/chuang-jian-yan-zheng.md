@@ -81,17 +81,17 @@ HERE
 
 ```
 [root@k8s-master ~]# cd /etc/kubernetes/ssl/
-cfssl gencert --initca=true k8s-root-ca-csr.json | cfssljson --bare k8s-root-ca
+[root@k8s-master ssl]# cfssl gencert --initca=true k8s-root-ca-csr.json | cfssljson --bare k8s-root-ca
 ```
 
 \#下发证书
 
 ```
-$ scp -r /etc/kubernetes/ssl/k8s-root-ca*.pem 172.20.20.2:/etc/kubernetes/ssl/
-$ scp -r /etc/kubernetes/ssl/k8s-root-ca*.pem 172.20.20.3:/etc/kubernetes/ssl/
-$ scp -r /etc/kubernetes/ssl/k8s-root-ca*.pem 172.20.20.4:/etc/kubernetes/ssl/
-$ scp -r /etc/kubernetes/ssl/k8s-root-ca*.pem 172.20.20.5:/etc/kubernetes/ssl/
-$ scp -r /etc/kubernetes/ssl/k8s-root-ca*.pem 172.20.20.6:/etc/kubernetes/ssl/
+[root@k8s-master ssl]# scp -r /etc/kubernetes/ssl/k8s-root-ca*.pem 172.20.20.2:/etc/kubernetes/ssl/
+[root@k8s-master ssl]# scp -r /etc/kubernetes/ssl/k8s-root-ca*.pem 172.20.20.3:/etc/kubernetes/ssl/
+[root@k8s-master ssl]# scp -r /etc/kubernetes/ssl/k8s-root-ca*.pem 172.20.20.4:/etc/kubernetes/ssl/
+[root@k8s-master ssl]# scp -r /etc/kubernetes/ssl/k8s-root-ca*.pem 172.20.20.5:/etc/kubernetes/ssl/
+[root@k8s-master ssl]# scp -r /etc/kubernetes/ssl/k8s-root-ca*.pem 172.20.20.6:/etc/kubernetes/ssl/
 ```
 
 
