@@ -6,7 +6,6 @@
 
 ```
 [root@k8s-master ~]#  cd /etc/kubernetes/ssl/
-
 [root@k8s-master ~]#  kubectl config set-cluster kubernetes \
   --certificate-authority=k8s-root-ca.pem \
   --embed-certs=true \
