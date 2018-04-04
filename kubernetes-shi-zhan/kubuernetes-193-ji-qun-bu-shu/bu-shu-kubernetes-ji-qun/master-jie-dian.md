@@ -19,7 +19,7 @@ EOF
 \# 生成高级审核配置文件
 
 ```
-[root@k8s-master ~]# cat >>/etc/kubernetes/ssl/audit-policy.yaml <<EOF
+[root@k8s-master ~]# cat >/etc/kubernetes/ssl/audit-policy.yaml <<EOF
 # Log all requests at the Metadata level.
 apiVersion: audit.k8s.io/v1beta1
 kind: Policy
