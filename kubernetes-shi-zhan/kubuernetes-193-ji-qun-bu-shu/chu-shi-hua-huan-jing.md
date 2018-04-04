@@ -18,7 +18,7 @@ $ sed -i "s/^SELINUX=enforcing/SELINUX=disabled/g" /etc/selinux/config
 $ getenforce
 ```
 
-### 安装docker（master，node）
+### 安装docker 1.13.1（master，node）
 
 > 官方1.9 中提示， 目前 k8s 支持最高 Docker versions 1.11.2, 1.12.6, 1.13.1, and 17.03.1
 
