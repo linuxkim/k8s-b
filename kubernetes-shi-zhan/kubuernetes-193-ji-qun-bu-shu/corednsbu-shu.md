@@ -158,14 +158,11 @@ spec:
   - name: metrics
     port: 9153
     protocol: TCP
-
 ```
 
 > kubernetes cluster.local \#创建 svc 的 IP 段
 >
 > clusterIP  \#指定 DNS 的 IP
-
-
 
 ### 导入 yaml文件
 
@@ -177,6 +174,57 @@ clusterrolebinding "system:coredns" created
 configmap "coredns" created
 deployment "coredns" created
 service "coredns" created
+```
+
+### 查看 kubedns 服务
+
+```
+[root@k8s-master plugin]# kubectl get pod,svc -n kube-system
+NAME                          READY     STATUS              RESTARTS   AGE
+po/coredns-859dd66bb5-b6cx2   0/1       ContainerCreating   0          11m
+
+NAME          TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)                  AGE
+svc/coredns   ClusterIP   10.6.0.2     <none>        53/UDP,53/TCP,9153/TCP   11m
+```
+
+### 验证dns服务
+
+\#创建一个service
+
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+     app: nginx    
+spec:
+     containers:
+        - name: nginx
+          image: 172.20.88.6/test/nginx
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 80
+     restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  type: NodePort
+  sessionAffinity: ClientIP
+  selector:
+    app: nginx
+  ports:
+    - port: 80
+      nodePort: 30080
+```
+
+```
+[root@k8s-master plugin]# kubectl create -f nginx.yaml 
+pod "nginx" created
+service "nginx-service" created
 
 ```
 
