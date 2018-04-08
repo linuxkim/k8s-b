@@ -73,6 +73,13 @@ HERE
     --kubeconfig=./kubeconfig
 ```
 
+\#下发 kubeconfig 文件
+
+```
+[root@k8s-master ssl]#  scp /etc/kubernetes/ssl/kubeconfig 172.20.20.2:/etc/kubernetes/ssl
+[root@k8s-master ssl]#  scp /etc/kubernetes/ssl/kubeconfig 172.20.20.3:/etc/kubernetes/ssl
+```
+
 ### 创建 kubernetes 证书
 
 ```
