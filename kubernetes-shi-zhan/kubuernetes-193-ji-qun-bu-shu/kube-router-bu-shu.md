@@ -220,13 +220,13 @@ subjects:
   namespace: kube-system
 ```
 
-> --run-router=true   
+> --run-router=true  
 > \#启用Pod网络 - 通过iBGP发布并学习到Pod的路由。 （默认为true）
 >
 > --run-firewall=true  
 > \#启用网络策略 - 设置iptables为pod提供入口防火墙。 （默认为true）
 >
-> --run-service-proxy=true   
+> --run-service-proxy=true  
 > \#启用服务代理 - 为Kubernetes服务设置IPVS。 （默认为true）
 
 ### 导入yaml文件
@@ -257,28 +257,25 @@ kind: Pod
 metadata:
   name: nginx
   labels:
-     app: nginx    
+     app: nginx
 spec:
-     containers:
-        - name: nginx
-          image: 172.20.88.6/test/nginx
-          imagePullPolicy: IfNotPresent
-          ports:
-          - containerPort: 80
-     restartPolicy: Always
+  containers:
+  - name: nginx
+    image: 172.20.88.6/test/nginx
+    ports:
+    - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: nginx-service
 spec:
-  type: NodePort
-  sessionAffinity: ClientIP
   selector:
     app: nginx
   ports:
-    - port: 80
-      nodePort: 3080
+  - port: 80
+    targetPort: 80
+    protocol: TCP
 ```
 
 ```
@@ -289,20 +286,44 @@ service "nginx-service" created
 
 ```
 [root@k8s-master plugin]# kubectl get pod,svc
-NAME        READY     STATUS    RESTARTS   AGE
-po/nginx    1/1       Running   0          55s
+NAME       READY     STATUS    RESTARTS   AGE
+po/nginx   1/1       Running   0          1h
 
-NAME                TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)       AGE
-svc/kubernetes      ClusterIP   10.6.0.1     <none>        443/TCP       3d
-svc/nginx-service   NodePort    10.6.64.42   <none>        80:3080/TCP   54s
+NAME                TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+svc/kubernetes      ClusterIP   10.6.0.1       <none>        443/TCP   4d
+svc/nginx-service   ClusterIP   10.6.105.194   <none>        80/TCP    1h
 ```
 
+\#访问nginx服务
+
 ```
-[root@k8s-node-1 ~]# ping 10.6.0.1
-PING 10.6.0.1 (10.6.0.1) 56(84) bytes of data.
-64 bytes from 10.6.0.1: icmp_seq=1 ttl=64 time=0.106 ms
-64 bytes from 10.6.0.1: icmp_seq=2 ttl=64 time=0.086 ms
-64 bytes from 10.6.0.1: icmp_seq=3 ttl=64 time=0.076 ms
+[root@k8s-node-1 ~]# curl 10.6.105.194
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+
 ```
 
 
