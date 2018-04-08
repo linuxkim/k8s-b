@@ -220,16 +220,13 @@ subjects:
   namespace: kube-system
 ```
 
-> - --run-router=true 
->
+> --run-router=true 
 > \#启用Pod网络 - 通过iBGP发布并学习到Pod的路由。 （默认为true）
 >
-> - --run-firewall=true
->
+> --run-firewall=true
 > \#启用网络策略 - 设置iptables为pod提供入口防火墙。 （默认为true）
 >
-> - --run-service-proxy=true 
->
+> --run-service-proxy=true 
 > \#启用服务代理 - 为Kubernetes服务设置IPVS。 （默认为true）
 
 ### 导入yaml文件
