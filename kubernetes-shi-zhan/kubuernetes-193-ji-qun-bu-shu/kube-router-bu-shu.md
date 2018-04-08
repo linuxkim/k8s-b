@@ -294,7 +294,7 @@ svc/kubernetes      ClusterIP   10.6.0.1       <none>        443/TCP   4d
 svc/nginx-service   ClusterIP   10.6.105.194   <none>        80/TCP    1h
 ```
 
-\#访问nginx服务
+\#在node上访问nginx服务
 
 ```
 [root@k8s-node-1 ~]# curl 10.6.105.194
@@ -323,7 +323,6 @@ Commercial support is available at
 <p><em>Thank you for using nginx.</em></p>
 </body>
 </html>
-
 ```
 
 
