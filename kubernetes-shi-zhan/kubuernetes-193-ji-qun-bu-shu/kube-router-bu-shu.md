@@ -12,9 +12,36 @@ kube-router采用Linux内核的IPVS模块为K8s提供Service的代理。
 
 更多参考：
 
-[Kubernetes network services prox with IPVS/LVS](https://cloudnativelabs.github.io/post/2017-05-10-kube-network-service-proxy/)
+* [Kubernetes network services prox with IPVS/LVS](https://cloudnativelabs.github.io/post/2017-05-10-kube-network-service-proxy/)
+* [Kernel Load-Balancing for Docker Containers Using IPVS](https://blog.codeship.com/kernel-load-balancing-for-docker-containers-using-ipvs/)
 
-[Kernel Load-Balancing for Docker Containers Using IPVS](https://blog.codeship.com/kernel-load-balancing-for-docker-containers-using-ipvs/)
+##### 2. 容器网络
+
+kube-router利用BGP协议和Go的GoBGP库和为容器网络提供直连的方案。因为用了原生的Kubernetes API去构建容器网络，意味着在使用kube-router时，不需要在你的集群里面引入其他依赖。
+
+同样的，kube-router在引入容器CNI时也没有其它的依赖，官方的“bridge”插件就能满足kube-rouetr的需求。
+
+更多关于BGP协议在Kubernetes中的使用可以参考：
+
+* [Kubernetes pod networking and beyond with BGP](https://cloudnativelabs.github.io/post/2017-05-22-kube-pod-networking/)
+
+##### 3. 网络策略管理
+
+> --run-firewall
+
+采用了kube-router的Kubernetes很容易通过添加标签到kube-router的方式使用[网路策略](https://link.jianshu.com?t=https://kubernetes.io/docs/concepts/services-networking/network-policies/)功能。kube-router使用了ipset操作iptables，以保证防火墙的规则对系统性能有较低的影响。
+
+Kube-router支持networking.k8s.io/NetworkPolicy的API或者其他基于网络策略的V1/GA语义。
+
+更多关于kube-router防火墙的功能可以参考：
+
+* [Enforcing Kubernetes network policies with iptables](https://cloudnativelabs.github.io/post/2017-05-1-kube-network-policies/)
+
+#### 负载均衡器
+
+kube-router的负载均衡器功能，会在物理机上创建一个虚拟的kube-dummy-if网卡，然后利用k8s的watch APi实时更新svc和ep的信息。svc的cluster\_ip会绑定在kube-dummy-if网卡上，作为lvs的virtual server的地址。realserver的ip则通过ep获取到容器的IP地址。
+
+# 部署 Kube-router
 
 ### 创建 yaml文件
 
@@ -192,6 +219,18 @@ subjects:
   name: kube-router
   namespace: kube-system
 ```
+
+> - --run-router=true 
+>
+> \#启用Pod网络 - 通过iBGP发布并学习到Pod的路由。 （默认为true）
+>
+> - --run-firewall=true
+>
+> \#启用网络策略 - 设置iptables为pod提供入口防火墙。 （默认为true）
+>
+> - --run-service-proxy=true 
+>
+> \#启用服务代理 - 为Kubernetes服务设置IPVS。 （默认为true）
 
 ### 导入yaml文件
 
