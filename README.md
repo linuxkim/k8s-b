@@ -17,5 +17,5 @@
 
 # 捐赠
 
-![](/assets/wx1.JPG)![](/assets/zfb1.JPG)
+![](/assets/wx2.JPG)![](/assets/zfb2.JPG)
 
