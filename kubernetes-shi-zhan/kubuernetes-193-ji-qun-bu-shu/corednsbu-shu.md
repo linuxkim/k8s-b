@@ -262,15 +262,34 @@ pod "alpine" created
 \#查看所有service及pod
 
 ```
-[root@k8s-master plugin]# kubectl get pod,svc 
-NAME        READY     STATUS              RESTARTS   AGE
-po/alpine   0/1       ContainerCreating   0          23s
-po/nginx    0/1       ContainerCreating   0          4m
+[root@k8s-master plugin]# kubectl get pod,svc
+NAME        READY     STATUS    RESTARTS   AGE
+po/alpine   1/1       Running   0          2m
+po/nginx    1/1       Running   0          2m
 
 NAME                TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)       AGE
 svc/kubernetes      ClusterIP   10.6.0.1     <none>        443/TCP       3d
-svc/nginx-service   NodePort    10.6.3.133   <none>        80:3080/TCP   4m
+svc/nginx-service   NodePort    10.6.64.42   <none>        80:3080/TCP   2m
 ```
 
 \#测试dns
+
+```
+[root@k8s-master plugin]# kubectl exec -it alpine nslookup nginx-service
+nslookup: can't resolve '(null)': Name does not resolve
+
+Name:      nginx-service
+Address 1: 10.6.64.42 nginx-service.default.svc.cluster.local
+
+[root@k8s-master plugin]# kubectl exec -it alpine nslookup kubernetes
+nslookup: can't resolve '(null)': Name does not resolve
+
+Name:      kubernetes
+Address 1: 10.6.0.1 kubernetes.default.svc.cluster.local
+
+```
+
+> 在验证 dns 之前，coredns 未部署之前创建的 pod 与 deployment 等，都必须删除，重新部署，否则无法解析
+
+
 
