@@ -189,54 +189,6 @@ svc/coredns   ClusterIP   10.6.0.2     <none>        53/UDP,53/TCP,9153/TCP   11
 
 ### 验证dns服务
 
-\#创建一个service
-
-```
-apiVersion: v1
-kind: Pod
-metadata:
-  name: nginx
-  labels:
-     app: nginx    
-spec:
-     containers:
-        - name: nginx
-          image: 172.20.88.6/test/nginx
-          imagePullPolicy: IfNotPresent
-          ports:
-          - containerPort: 80
-     restartPolicy: Always
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: nginx-service
-spec:
-  type: NodePort
-  sessionAffinity: ClientIP
-  selector:
-    app: nginx
-  ports:
-    - port: 80
-      nodePort: 3080
-```
-
-```
-[root@k8s-master plugin]# kubectl create -f nginx.yaml 
-pod "nginx" created
-service "nginx-service" created
-```
-
-```
-[root@k8s-master plugin]# kubectl get pod,svc
-NAME        READY     STATUS    RESTARTS   AGE
-po/nginx    1/1       Running   0          55s
-
-NAME                TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)       AGE
-svc/kubernetes      ClusterIP   10.6.0.1     <none>        443/TCP       3d
-svc/nginx-service   NodePort    10.6.64.42   <none>        80:3080/TCP   54s
-```
-
 \#创建一个pod
 
 ```
