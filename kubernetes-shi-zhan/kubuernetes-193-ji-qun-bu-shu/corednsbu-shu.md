@@ -228,14 +228,13 @@ service "nginx-service" created
 ```
 
 ```
-[root@k8s-master plugin]# kubectl get pod,svc 
-NAME       READY     STATUS              RESTARTS   AGE
-po/nginx   0/1       ContainerCreating   0          59s
+[root@k8s-master plugin]# kubectl get pod,svc
+NAME        READY     STATUS    RESTARTS   AGE
+po/nginx    1/1       Running   0          55s
 
 NAME                TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)       AGE
 svc/kubernetes      ClusterIP   10.6.0.1     <none>        443/TCP       3d
-svc/nginx-service   NodePort    10.6.3.133   <none>        80:3080/TCP   59s
-
+svc/nginx-service   NodePort    10.6.64.42   <none>        80:3080/TCP   54s
 ```
 
 \#创建一个pod
@@ -274,8 +273,4 @@ svc/nginx-service   NodePort    10.6.3.133   <none>        80:3080/TCP   4m
 ```
 
 \#测试dns
-
-
-
-
 
