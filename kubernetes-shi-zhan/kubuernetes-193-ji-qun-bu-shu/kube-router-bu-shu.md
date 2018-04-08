@@ -220,13 +220,13 @@ subjects:
   namespace: kube-system
 ```
 
-> --run-router=true 
+> --run-router=true   
 > \#启用Pod网络 - 通过iBGP发布并学习到Pod的路由。 （默认为true）
 >
-> --run-firewall=true
+> --run-firewall=true  
 > \#启用网络策略 - 设置iptables为pod提供入口防火墙。 （默认为true）
 >
-> --run-service-proxy=true 
+> --run-service-proxy=true   
 > \#启用服务代理 - 为Kubernetes服务设置IPVS。 （默认为true）
 
 ### 导入yaml文件
@@ -248,6 +248,54 @@ po/kube-router-gvp2x   1/1       Running   0          27s
 ```
 
 ### 验证
+
+\#创建一个service
+
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+     app: nginx    
+spec:
+     containers:
+        - name: nginx
+          image: 172.20.88.6/test/nginx
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 80
+     restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  type: NodePort
+  sessionAffinity: ClientIP
+  selector:
+    app: nginx
+  ports:
+    - port: 80
+      nodePort: 3080
+```
+
+```
+[root@k8s-master plugin]# kubectl create -f nginx.yaml 
+pod "nginx" created
+service "nginx-service" created
+```
+
+```
+[root@k8s-master plugin]# kubectl get pod,svc
+NAME        READY     STATUS    RESTARTS   AGE
+po/nginx    1/1       Running   0          55s
+
+NAME                TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)       AGE
+svc/kubernetes      ClusterIP   10.6.0.1     <none>        443/TCP       3d
+svc/nginx-service   NodePort    10.6.64.42   <none>        80:3080/TCP   54s
+```
 
 ```
 [root@k8s-node-1 ~]# ping 10.6.0.1
