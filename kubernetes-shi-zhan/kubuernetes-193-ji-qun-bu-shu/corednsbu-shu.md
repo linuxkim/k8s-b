@@ -244,7 +244,6 @@ nslookup: can't resolve '(null)': Name does not resolve
 
 Name:      kubernetes
 Address 1: 10.6.0.1 kubernetes.default.svc.cluster.local
-
 ```
 
 > 在验证 dns 之前，coredns 未部署之前创建的 pod 与 deployment 等，都必须删除，重新部署，否则无法解析
