@@ -1,3 +1,21 @@
+# Kube-router 是什么？
+
+**Kube-router**是基于Kubernetes网络设计的一个集负载均衡器、防火墙和容器网络的综合方案。
+
+### 主要功能
+
+##### 1. 基于IPVS/LVS的负载均衡器
+
+> --run-service-proxy
+
+kube-router采用Linux内核的IPVS模块为K8s提供Service的代理。
+
+更多参考：
+
+[Kubernetes network services prox with IPVS/LVS](https://cloudnativelabs.github.io/post/2017-05-10-kube-network-service-proxy/)
+
+[Kernel Load-Balancing for Docker Containers Using IPVS](https://blog.codeship.com/kernel-load-balancing-for-docker-containers-using-ipvs/)
+
 ### 创建 yaml文件
 
 ```
@@ -173,7 +191,6 @@ subjects:
 - kind: ServiceAccount
   name: kube-router
   namespace: kube-system
-
 ```
 
 ### 导入yaml文件
@@ -185,7 +202,6 @@ daemonset "kube-router" created
 serviceaccount "kube-router" created
 clusterrole "kube-router" created
 clusterrolebinding "kube-router" created
-
 ```
 
 ```
