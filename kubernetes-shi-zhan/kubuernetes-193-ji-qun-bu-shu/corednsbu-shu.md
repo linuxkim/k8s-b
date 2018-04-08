@@ -227,5 +227,55 @@ pod "nginx" created
 service "nginx-service" created
 ```
 
+```
+[root@k8s-master plugin]# kubectl get pod,svc 
+NAME       READY     STATUS              RESTARTS   AGE
+po/nginx   0/1       ContainerCreating   0          59s
+
+NAME                TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)       AGE
+svc/kubernetes      ClusterIP   10.6.0.1     <none>        443/TCP       3d
+svc/nginx-service   NodePort    10.6.3.133   <none>        80:3080/TCP   59s
+
+```
+
+\#创建一个pod
+
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: alpine
+spec:
+  containers:
+  - name: alpine
+    image: 172.20.88.6/xnol-k8s/alpine
+    command:
+    - sh
+    - -c
+    - while true; do sleep 1; done
+```
+
+```
+[root@k8s-master plugin]# kubectl create -f alpine.yaml 
+pod "alpine" created
+```
+
+\#查看所有service及pod
+
+```
+[root@k8s-master plugin]# kubectl get pod,svc 
+NAME        READY     STATUS              RESTARTS   AGE
+po/alpine   0/1       ContainerCreating   0          23s
+po/nginx    0/1       ContainerCreating   0          4m
+
+NAME                TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)       AGE
+svc/kubernetes      ClusterIP   10.6.0.1     <none>        443/TCP       3d
+svc/nginx-service   NodePort    10.6.3.133   <none>        80:3080/TCP   4m
+```
+
+\#测试dns
+
+
+
 
 
