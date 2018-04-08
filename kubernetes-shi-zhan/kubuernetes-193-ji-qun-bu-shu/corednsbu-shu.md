@@ -180,11 +180,13 @@ service "coredns" created
 
 ```
 [root@k8s-master plugin]# kubectl get pod,svc -n kube-system
-NAME                          READY     STATUS              RESTARTS   AGE
-po/coredns-859dd66bb5-b6cx2   0/1       ContainerCreating   0          11m
+NAME                          READY     STATUS    RESTARTS   AGE
+po/coredns-859dd66bb5-2nzgd   1/1       Running   0          6m
+po/kube-router-fhc75          1/1       Running   0          1h
+po/kube-router-gvp2x          1/1       Running   0          1h
 
 NAME          TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)                  AGE
-svc/coredns   ClusterIP   10.6.0.2     <none>        53/UDP,53/TCP,9153/TCP   11m
+svc/coredns   ClusterIP   10.6.0.2     <none>        53/UDP,53/TCP,9153/TCP   6m
 ```
 
 ### 验证dns服务
@@ -214,14 +216,18 @@ pod "alpine" created
 \#查看所有service及pod
 
 ```
-[root@k8s-master plugin]# kubectl get pod,svc
-NAME        READY     STATUS    RESTARTS   AGE
-po/alpine   1/1       Running   0          2m
-po/nginx    1/1       Running   0          2m
+[root@k8s-master plugin]# kubectl get pod,svc --all-namespaces
+NAMESPACE     NAME                          READY     STATUS    RESTARTS   AGE
+default       po/alpine                     1/1       Running   0          6s
+default       po/nginx                      1/1       Running   0          37s
+kube-system   po/coredns-859dd66bb5-2nzgd   1/1       Running   0          5m
+kube-system   po/kube-router-fhc75          1/1       Running   0          1h
+kube-system   po/kube-router-gvp2x          1/1       Running   0          1h
 
-NAME                TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)       AGE
-svc/kubernetes      ClusterIP   10.6.0.1     <none>        443/TCP       3d
-svc/nginx-service   NodePort    10.6.64.42   <none>        80:3080/TCP   2m
+NAMESPACE     NAME                TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)                  AGE
+default       svc/kubernetes      ClusterIP   10.6.0.1      <none>        443/TCP                  4d
+default       svc/nginx-service   ClusterIP   10.6.163.29   <none>        80/TCP                   37s
+kube-system   svc/coredns         ClusterIP   10.6.0.2      <none>        53/UDP,53/TCP,9153/TCP   5m
 ```
 
 \#测试dns
@@ -231,13 +237,14 @@ svc/nginx-service   NodePort    10.6.64.42   <none>        80:3080/TCP   2m
 nslookup: can't resolve '(null)': Name does not resolve
 
 Name:      nginx-service
-Address 1: 10.6.64.42 nginx-service.default.svc.cluster.local
+Address 1: 10.6.163.29 nginx-service.default.svc.cluster.local
 
 [root@k8s-master plugin]# kubectl exec -it alpine nslookup kubernetes
 nslookup: can't resolve '(null)': Name does not resolve
 
 Name:      kubernetes
 Address 1: 10.6.0.1 kubernetes.default.svc.cluster.local
+
 ```
 
 > 在验证 dns 之前，coredns 未部署之前创建的 pod 与 deployment 等，都必须删除，重新部署，否则无法解析
