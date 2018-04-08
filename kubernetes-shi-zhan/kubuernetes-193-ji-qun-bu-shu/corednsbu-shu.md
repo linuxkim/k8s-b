@@ -218,14 +218,13 @@ spec:
     app: nginx
   ports:
     - port: 80
-      nodePort: 30080
+      nodePort: 3080
 ```
 
 ```
 [root@k8s-master plugin]# kubectl create -f nginx.yaml 
 pod "nginx" created
 service "nginx-service" created
-
 ```
 
 
