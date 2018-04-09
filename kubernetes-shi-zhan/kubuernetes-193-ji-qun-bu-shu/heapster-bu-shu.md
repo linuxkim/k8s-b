@@ -244,11 +244,9 @@ svc/monitoring-influxdb    ClusterIP   10.6.138.246   <none>        8086/TCP    
 
 > 浏览器访问：[http://NodeIP:3333，任意一个NodeIP即可。](http://NodeIP:8100，任意一个NodeIP即可。)
 
-
-
 ![](/assets/qqq1.jpg)
 
-\#数据配置
+\#数据源配置
 
 ![](/assets/qqq2.jpg)
 
