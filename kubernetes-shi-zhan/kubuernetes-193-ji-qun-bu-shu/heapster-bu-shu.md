@@ -248,5 +248,5 @@ svc/monitoring-influxdb    ClusterIP   10.6.138.246   <none>        8086/TCP    
 
 ![](/assets/UYATKJ~GZ%PG$W$B@G22]8Q.png)\#监控数据可视化
 
-![](/assets/qwe123.jpg)
+![](/assets/qwe123.jpg)![](/assets/qwe231.jpg)
 
