@@ -15,7 +15,5 @@
 
 ![](/assets/微信图片_20180404111318.png)
 
-# 捐赠
 
-![](/assets/wx2.JPG)![](/assets/zfb2.JPG)
 
