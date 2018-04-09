@@ -113,14 +113,20 @@ spec:
     k8s-app: heapster
 ```
 
+> 官方目录：[https://github.com/kubernetes/heapster/tree/master/deploy/kube-config/influxdb](https://github.com/kubernetes/heapster/tree/master/deploy/kube-config/influxdb)
+
+
+
 # 导入yaml文件
 
 ```
 [root@k8s-master plugin]# kubectl create -f influxdb.yaml 
 deployment "monitoring-influxdb" created
 service "monitoring-influxdb" created
+
 [root@k8s-master influxdb]# kubectl create -f heapster-rbac.yaml 
 clusterrolebinding "heapster" created
+
 [root@k8s-master influxdb]# kubectl create -f heapster.yaml 
 serviceaccount "heapster" created
 deployment "heapster" created
