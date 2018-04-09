@@ -234,7 +234,5 @@ svc/monitoring-influxdb    ClusterIP   10.6.138.246   <none>        8086/TCP    
 
 # 验证
 
-
-
-
+![](/assets/N7$5}0K~[65N%28223HUMS]]8.png)
 
