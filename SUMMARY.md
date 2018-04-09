@@ -33,7 +33,7 @@
 
 ## Kubernetes 实战
 
-* [Kubuernetes 集群部署](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu.md)
+* [Kubuernetes 集群实战](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu.md)
   * [环境说明](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/huan-jing-shuo-ming.md)
   * [初始化环境](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/chu-shi-hua-huan-jing.md)
   * [下发安装包](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/xia-fa-an-zhuang-bao.md)
