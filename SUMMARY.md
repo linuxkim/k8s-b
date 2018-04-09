@@ -11,7 +11,7 @@
 * [2.2. Kubernetes 架构与组件](jia-gou-yu-bu-shu/kubernetes-jia-gou-he-zu-jian.md)
   * [2.2.1.Mster 组件](jia-gou-yu-bu-shu/kubernetes-jia-gou-he-zu-jian/mster-zu-jian.md)
   * [2.2.2.Node 组件](jia-gou-yu-bu-shu/kubernetes-jia-gou-he-zu-jian/node-zu-jian.md)
-* [Kubernetes 部署](jia-gou-yu-bu-shu/kubernetes-bu-shu.md)
+* [Kubernetes 单机部署](jia-gou-yu-bu-shu/kubernetes-bu-shu.md)
 
 ## Pod
 
@@ -33,7 +33,7 @@
 
 ## Kubernetes 实战
 
-* [Kubuernetes 1.9.3 集群部署](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu.md)
+* [Kubuernetes 集群部署](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu.md)
   * [环境说明](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/huan-jing-shuo-ming.md)
   * [初始化环境](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/chu-shi-hua-huan-jing.md)
   * [下发安装包](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/xia-fa-an-zhuang-bao.md)
@@ -44,6 +44,7 @@
     * [Node节点](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/bu-shu-kubernetes-ji-qun/nodejie-dian.md)
     * [Kube-router 部署](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/kube-router-bu-shu.md)
     * [CoreDNS 部署](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/corednsbu-shu.md)
+    * [dashboard 部署](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/bu-shu-kubernetes-ji-qun/dashboard-bu-shu.md)
 
 ## 存储
 
