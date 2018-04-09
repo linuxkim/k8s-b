@@ -242,5 +242,7 @@ svc/monitoring-influxdb    ClusterIP   10.6.138.246   <none>        8086/TCP    
 
 \#grafana验证
 
+> 浏览器访问：[http://NodeIP:3333，任意一个NodeIP即可。](http://NodeIP:8100，任意一个NodeIP即可。)
 
+![](/assets/[D92H]0NA%BK_{8LO7NW3YF.png)
 
