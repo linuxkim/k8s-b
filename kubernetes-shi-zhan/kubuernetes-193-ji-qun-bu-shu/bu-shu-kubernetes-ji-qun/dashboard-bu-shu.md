@@ -112,7 +112,11 @@ svc/kubernetes-dashboard   NodePort    10.6.145.157   <none>        9090:8100/TC
 
 # 测试
 
-> 浏览器访问：http://NodeIP:8100，任意一个NodeIP即可。
+> 浏览器访问：[http://NodeIP:8100，任意一个NodeIP即可。](http://NodeIP:8100，任意一个NodeIP即可。)
 
 ![](/assets/123123121231.jpg)
+
+> 由于缺少 Heapster 插件，当前 dashboard 不能展示 Pod、Nodes 的 CPU、内存等 metric 图形。
+
+
 
