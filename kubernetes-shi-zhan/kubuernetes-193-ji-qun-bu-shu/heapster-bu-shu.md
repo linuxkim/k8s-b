@@ -232,5 +232,9 @@ svc/monitoring-grafana     NodePort    10.6.161.66    <none>        80:3333/TCP 
 svc/monitoring-influxdb    ClusterIP   10.6.138.246   <none>        8086/TCP                 47s
 ```
 
+# 验证
+
+
+
 
 
