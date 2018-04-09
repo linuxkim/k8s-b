@@ -12,7 +12,6 @@
   * [2.2.1.Mster 组件](jia-gou-yu-bu-shu/kubernetes-jia-gou-he-zu-jian/mster-zu-jian.md)
   * [2.2.2.Node 组件](jia-gou-yu-bu-shu/kubernetes-jia-gou-he-zu-jian/node-zu-jian.md)
 * [Kubernetes 部署](jia-gou-yu-bu-shu/kubernetes-bu-shu.md)
-* [Kubernetes 插件](jia-gou-yu-bu-shu/kubernetes-cha-jian.md)
 
 ## Pod
 
