@@ -113,6 +113,7 @@ spec:
     k8s-app: heapster
 ```
 
+<<<<<<< HEAD
 \#grafana
 
 ```
@@ -194,17 +195,25 @@ spec:
 
 > 官方目录：[https://github.com/kubernetes/heapster/tree/master/deploy/kube-config/influxdb](https://github.com/kubernetes/heapster/tree/master/deploy/kube-config/influxdb)
 
+=======
+>>>>>>> parent of 536df88... Updates kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/bu-shu-kubernetes-ji-qun/heapster-bu-shu.md
 # 导入yaml文件
 
 ```
 [root@k8s-master plugin]# kubectl create -f influxdb.yaml 
 deployment "monitoring-influxdb" created
 service "monitoring-influxdb" created
+<<<<<<< HEAD
 
 [root@k8s-master plugin]# kubectl create -f heapster-rbac.yaml 
 clusterrolebinding "heapster" created
 
 [root@k8s-master plugin]# kubectl create -f heapster.yaml 
+=======
+[root@k8s-master influxdb]# kubectl create -f heapster-rbac.yaml 
+clusterrolebinding "heapster" created
+[root@k8s-master influxdb]# kubectl create -f heapster.yaml 
+>>>>>>> parent of 536df88... Updates kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/bu-shu-kubernetes-ji-qun/heapster-bu-shu.md
 serviceaccount "heapster" created
 deployment "heapster" created
 service "heapster" created
