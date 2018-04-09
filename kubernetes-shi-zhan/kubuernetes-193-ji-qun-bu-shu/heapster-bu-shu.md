@@ -196,25 +196,25 @@ spec:
 # 导入yaml文件
 
 ```
-[root@k8s-master influxdb]# kubectl create -f influxdb.yaml 
+[root@k8s-master plugin]# kubectl create -f influxdb.yaml 
 deployment "monitoring-influxdb" created
 service "monitoring-influxdb" created
 
-[root@k8s-master influxdb]# kubectl create -f heapster-rbac.yaml 
+[root@k8s-master plugin]# kubectl create -f heapster-rbac.yaml 
 clusterrolebinding "heapster" created
 
-[root@k8s-master influxdb]# kubectl create -f heapster.yaml 
+[root@k8s-master plugin]# kubectl create -f heapster.yaml 
 serviceaccount "heapster" created
 deployment "heapster" created
 service "heapster" created
 
-[root@k8s-master influxdb]# kubectl create -f grafana.yaml 
+[root@k8s-master plugin]# kubectl create -f grafana.yaml 
 deployment "monitoring-grafana" created
 service "monitoring-grafana" created
 ```
 
 ```
-[root@k8s-master influxdb]# kubectl get pod,svc -n kube-system
+[root@k8s-master plugin]# kubectl get pod,svc -n kube-system
 NAME                                       READY     STATUS    RESTARTS   AGE
 po/coredns-859dd66bb5-2nzgd                1/1       Running   0          1d
 po/heapster-cfff9f6c4-ngqnk                1/1       Running   0          38s
