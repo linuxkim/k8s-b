@@ -43,8 +43,8 @@
   * [Node节点](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/bu-shu-kubernetes-ji-qun/nodejie-dian.md)
   * [Kube-router 部署](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/kube-router-bu-shu.md)
   * [CoreDNS 部署](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/corednsbu-shu.md)
+  * [Dashboard 部署](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/bu-shu-kubernetes-ji-qun/dashboard-bu-shu.md)
   * [部署Kubernetes集群](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/bu-shu-kubernetes-ji-qun.md)
-    * [Dashboard 部署](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/bu-shu-kubernetes-ji-qun/dashboard-bu-shu.md)
     * [Heapster 部署](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/bu-shu-kubernetes-ji-qun/heapster-bu-shu.md)
 
 ## 存储
