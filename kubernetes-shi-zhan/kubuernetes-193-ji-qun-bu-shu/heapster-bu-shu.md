@@ -234,5 +234,13 @@ svc/monitoring-influxdb    ClusterIP   10.6.138.246   <none>        8086/TCP    
 
 # 验证
 
+\#heapster验证
+
 ![](/assets/N7$5}0K~[65N%28223HUMS]]8.png)
+
+> 如上图： dashboard 中已展示出 Pod、Nodes 的 CPU、内存等 metric 图形。
+
+\#grafana验证
+
+
 
