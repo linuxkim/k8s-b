@@ -249,5 +249,5 @@ svc/monitoring-influxdb    ClusterIP   10.6.93.47     <none>        8086/TCP    
 
 ![](/assets/UYATKJ~GZ%PG$W$B@G22]8Q.png)\#验证
 
-![](/assets/1523263428%281%29.jpg)
+![](/assets/Q1R%28X6B1Y1J_BO@V8_D%90N.png)
 
