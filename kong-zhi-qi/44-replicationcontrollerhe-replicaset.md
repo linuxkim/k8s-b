@@ -55,7 +55,6 @@ nginx-rc-v1   2         2         2         21s
 NAME                READY     STATUS    RESTARTS   AGE
 nginx-rc-v1-7bj2x   1/1       Running   0          29s
 nginx-rc-v1-7tfd5   1/1       Running   0          29s
-
 ```
 
 ## 滚动升级
@@ -100,6 +99,17 @@ Scaling nginx-rc-v2 up to 2
 Scaling nginx-rc-v1 down to 0
 Update succeeded. Deleting nginx-rc-v1
 replicationcontroller "nginx-rc-v1" rolling updated to "nginx-rc-v2"
+```
+
+```
+[root@k8s-master plugin]# kubectl get rc nginx-rc-v2
+NAME          DESIRED   CURRENT   READY     AGE
+nginx-rc-v2   2         2         2         26s
+
+[root@k8s-master plugin]# kubectl get pod --selector app=nginx
+NAME                READY     STATUS    RESTARTS   AGE
+nginx-rc-v2-527qs   1/1       Running   0          32s
+nginx-rc-v2-cqxgd   1/1       Running   0          22s
 ```
 
 升级开始后，导入v2的yaml文件，每隔10s逐步增加v2版本的Replication Controller的Pod副本数，逐步减少v1版本的Replication Controller的Pod副本数。升级完成后删除v1版本的Replication Controller，保留v2版本的Replication Controller，即实现滚动升级。
