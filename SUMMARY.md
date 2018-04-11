@@ -24,7 +24,7 @@
 * [4.1. Deployment](kong-zhi-qi/41.md)
 * [4.2. StatefulSet](kong-zhi-qi/42-statefulset.md)
 * [4.3. DaemonSet](kong-zhi-qi/43-daemonset.md)
-* [4.4. ReplicationController和ReplicaSet](kong-zhi-qi/44-replicationcontrollerhe-replicaset.md)
+* [4.4. ReplicationController](kong-zhi-qi/44-replicationcontrollerhe-replicaset.md)
 * [4.5. Job](kong-zhi-qi/45-job.md)
 * [4.6. CronJob](kong-zhi-qi/46-cronjob.md)
 * [4.7. Horizontal Pod Autoscaling](kong-zhi-qi/47-horizontal-pod-autoscaling.md)
