@@ -32,6 +32,8 @@ Job Controller负责根据Job Spec创建Pod，并持续监控Pod的状态，直�
 
 #### 示例
 
+##### 一次性Job
+
 \#job.yaml
 
 ```
@@ -87,5 +89,33 @@ NAME      DESIRED   SUCCESSFUL   AGE
 pi        1         1            3m
 ```
 
+##### 固定次数Job
 
+\#job.yaml
+
+```
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: hello
+spec:
+  completions: 3
+  template:
+    metadata:
+      name: hello
+      labels:
+        app: hello
+    spec:
+      containers:
+      - name: hello
+        image: 172.20.88.6/test/busybox
+        command: ["echo", "hello"]
+      restartPolicy: Never
+```
+
+上面是执行输出3次hello的任务
+
+# Bare Pods
+
+所谓Bare Pods是指直接用PodSpec来创建的Pod（即不在ReplicaSets或者ReplicationCtroller的管理之下的Pods）。这些Pod在Node重启后不会自动重启，但Job则会创建新的Pod继续任务。所以，推荐使用Job来替代Bare Pods，即便是应用只需要一个Pod。
 
