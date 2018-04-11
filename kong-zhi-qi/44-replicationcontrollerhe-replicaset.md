@@ -11,21 +11,24 @@ Replication Controller简称RC，它能确保容器应用的副本数始终保�
 
 # 创建 ReplicationController
 
-\#nginx-rc.yaml
+\#nginx-rc-v1.yaml
 
 ```
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: nginx-rc
+  name: nginx-rc-v1
 spec:
   replicas: 2
   selector:
-      app: nginx
+    app: nginx
+    version: v1
   template:
     metadata:
+      name: nginx
       labels:
         app: nginx
+        version: v1
     spec:
       containers:
       - name: nginx
@@ -37,22 +40,69 @@ spec:
 \#创建rc
 
 ```
-[root@k8s-master plugin]# kubectl create -f nginx-rc.yaml 
-replicationcontroller "nginx-rc" created
+[root@k8s-master plugin]# kubectl create -f nginx-rc-v1.yaml 
+replicationcontroller "nginx-rc-v1" created
 ```
 
 \#查看rc和pod
 
 ```
-[root@k8s-master plugin]# kubectl get rc nginx-rc
-NAME       DESIRED   CURRENT   READY     AGE
-nginx-rc   2         2         2         48s
+[root@k8s-master plugin]# kubectl get rc nginx-rc-v1
+NAME          DESIRED   CURRENT   READY     AGE
+nginx-rc-v1   2         2         2         21s
 
 [root@k8s-master plugin]# kubectl get pod --selector app=nginx
-NAME             READY     STATUS    RESTARTS   AGE
-nginx-rc-qp4dc   1/1       Running   0          1m
-nginx-rc-v4k8r   1/1       Running   0          1m
+NAME                READY     STATUS    RESTARTS   AGE
+nginx-rc-v1-7bj2x   1/1       Running   0          29s
+nginx-rc-v1-7tfd5   1/1       Running   0          29s
+
 ```
+
+## 滚动升级
+
+> 滚动升级是一种平滑过渡的升级方式，通过逐步替换的策略，保证整体系统的稳定，在初始升级的时候可以及时发现，调整问题，以保证问题影响度不会扩大。
+
+\#将nginx v1版本升级到v2
+
+```
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: nginx-rc-v2
+spec:
+  replicas: 2
+  selector:
+    app: nginx
+    version: v2
+  template:
+    metadata:
+      name: nginx
+      labels:
+        app: nginx
+        version: v2
+    spec:
+      containers:
+      - name: nginx
+        image: 172.20.88.6/test/nginx:v2
+        ports:
+        - containerPort: 80
+```
+
+\#开始滚动升级
+
+```
+[root@k8s-master plugin]# kubectl rolling-update nginx-rc-v1 -f nginx-rc-v2.yaml --update-period=10s
+Created nginx-rc-v2
+Scaling up nginx-rc-v2 from 0 to 2, scaling down nginx-rc-v1 from 2 to 0 (keep 2 pods available, don't exceed 3 pods)
+Scaling nginx-rc-v2 up to 1
+Scaling nginx-rc-v1 down to 1
+Scaling nginx-rc-v2 up to 2
+Scaling nginx-rc-v1 down to 0
+Update succeeded. Deleting nginx-rc-v1
+replicationcontroller "nginx-rc-v1" rolling updated to "nginx-rc-v2"
+```
+
+升级开始后，导入v2的yaml文件，每隔10s逐步增加v2版本的Replication Controller的Pod副本数，逐步减少v1版本的Replication Controller的Pod副本数。升级完成后删除v1版本的Replication Controller，保留v2版本的Replication Controller，即实现滚动升级。
 
 
 
