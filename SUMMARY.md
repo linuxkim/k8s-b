@@ -31,7 +31,7 @@
 
 ## 服务发现
 
-## Kubernetes 实战
+## Kubernetes 实战与扩展
 
 * [Kubuernetes 集群实战](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu.md)
   * [环境说明](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/huan-jing-shuo-ming.md)
