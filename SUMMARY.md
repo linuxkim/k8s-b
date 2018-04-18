@@ -46,6 +46,7 @@
   * [CoreDNS 部署](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/corednsbu-shu.md)
   * [Dashboard 部署](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/bu-shu-kubernetes-ji-qun/dashboard-bu-shu.md)
   * [Heapster 部署](kubernetes-shi-zhan/kubuernetes-193-ji-qun-bu-shu/heapster-bu-shu.md)
+* [Kube-DNS 实战](kubernetes-shi-zhan/kube-dns-bu-shu.md)
 
 ## 存储
 
