@@ -69,7 +69,6 @@ ExecStart=/usr/bin/dockerd-current  $DOCKER_NETWORK_OPTIONS \
           --default-runtime=docker-runc \
           --exec-opt native.cgroupdriver=systemd \
           --userland-proxy-path=/usr/libexec/docker/docker-proxy-current \
-          --graph=/mnt --storage-driver=overlay2 \
           $OPTIONS \
           $DOCKER_STORAGE_OPTIONS \
           $DOCKER_NETWORK_OPTIONS \
